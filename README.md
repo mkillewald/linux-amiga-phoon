@@ -6,6 +6,8 @@ which allow you to add/subract time from the command line along with the necessa
 
 Amiga style arguments:
 ```
+L=LINES/K/N,M=MIN/K/N,H=HOUR/K/N,D=DAY/K/N,MO=MONTH/K/N,Y=YEAR/K/N,SD=SHOWDATE/S,HELP/S,DATETIME/F
+
 Phoon: Phases of the Moon v03b (6 Oct 2019)
 
 Usage:
