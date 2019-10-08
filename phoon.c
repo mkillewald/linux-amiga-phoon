@@ -78,9 +78,42 @@
 #include "astro.h"
 
 /* Global defines and declarations. */
-#define TITLE "Phoon: Phases of the Moon"
+#define TITLE "phoon: PHase of the mOON"
 #define VERSION "v03b"
 #define VDATE "(6 Oct 2019)"
+
+#ifdef AMIGA
+#define TEMPLATE "L=LINES/K/N,M=MIN/K/N,H=HOUR/K/N,D=DAY/K/N,MO=MONTH/K/N,Y=YEAR/K/N,SD=SHOWDATE/S,HELP/S,DATETIME/F"
+#define USAGE "Usage:\n"\
+               "%s [<options>] [<date> [<time>]]\n\n"\
+               "Options:\n"\
+               "   L, LINES n    n = lines to generate (default: 23)\n"\
+               "   M, MIN n      n = +/- change in minutes\n"\
+               "   H, HOUR n     n = +/- change in hours\n"\
+               "   D, DAY n      n = +/- change in days\n"\
+               "   MO, MONTH n   n = +/- change in months\n"\
+               "   Y, YEAR n     n = +/- change in years\n"\
+               "   SD, SHOWDATE  display date of moon phase being shown\n"\
+               "   HELP          display this message\n\n"\
+               "Where:\n"\
+               "   <date>   = start date (DD MMM YYYY)\n"\
+               "   <time>   = start time (HH:MM[:SS] [AM|PM] [TZ])\n\n"
+#else
+#define USAGE "Usage:\n"\
+              "%s [<options>] [<date> [<time>]]\n\n"\
+              "Options:\n"\
+              "   -l n     n = lines to generate (default: 23)\n"\
+              "   -m n     n = +/- change in minutes\n"\
+              "   -h n     n = +/- change in hours\n"\
+              "   -d n     n = +/- change in days\n"\
+              "   -M n     n = +/- change in months\n"\
+              "   -y n     n = +/- change in years\n"\
+              "   -s       display date of moon phase being shown\n"\
+              "   --help   display this message\n\n"\
+              "Where:\n"\
+              "   <date>   = start date (DD MMM YYYY)\n"\
+              "   <time>   = start time (HH:MM[:SS] [AM|PM] [TZ])\n\n"
+#endif /* AMIGA */
 
 #define SECSPERMINUTE 60
 #define SECSPERHOUR (60 * SECSPERMINUTE)
@@ -96,10 +129,6 @@
 #define MAXNUMLINES (LINELENGTH * ASPECTRATIO)
 
 #ifdef AMIGA
-#define TEMPLATE "L=LINES/K/N,M=MIN/K/N,H=HOUR/K/N,D=DAY/K/N,MO=MONTH/K/N,Y=YEAR/K/N,SD=SHOWDATE/S,HELP/S,DATETIME/F"
-#endif /* AMIGA */
-
-#ifdef AMIGA
 /* parse Amiga style command line arguments */
 static int
 parse_amiga_args(char** argv, int* lines, LONG* dmin, LONG* dhour, LONG* dday,
@@ -107,20 +136,6 @@ parse_amiga_args(char** argv, int* lines, LONG* dmin, LONG* dhour, LONG* dday,
 {
     struct RDArgs *rdargs;
     LONG  params[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    char* usage = "Usage:\n"
-                   "%s [<options>] [<date> [<time>]]\n\n"
-                   "Options:\n"
-                   "   L, LINES n    n = lines to generate (default: 23)\n"
-                   "   M, MIN n      n = +/- change in minutes\n"
-                   "   H, HOUR n     n = +/- change in hours\n"
-                   "   D, DAY n      n = +/- change in days\n"
-                   "   MO, MONTH n   n = +/- change in months\n"
-                   "   Y, YEAR n     n = +/- change in years\n"
-                   "   SD, SHOWDATE  display date of moon phase being shown\n"
-                   "   HELP          display this message\n\n"
-                   "Where:\n"
-                   "   <date>   = start date (DD MMM YYYY)\n"
-                   "   <time>   = start time (HH:MM[:SS] [AM|PM] [TZ])\n\n";
 
     rdargs = ReadArgs(TEMPLATE, params, NULL);
 
@@ -169,9 +184,10 @@ parse_amiga_args(char** argv, int* lines, LONG* dmin, LONG* dhour, LONG* dday,
         return 0;
     }
     else
-    {   fprintf(stderr, "%s %s %s\n\n", TITLE, VERSION, VDATE);
+    {
+    	  fprintf(stderr, "%s %s %s\n\n", TITLE, VERSION, VDATE);
         fprintf(stderr, "\n**Invalid arguments\n\n");
-        fprintf(stderr, usage, argv[0]);
+        fprintf(stderr, USAGE, argv[0]);
 
         return -1;
     }
@@ -185,20 +201,6 @@ parse_args(int argc, char** argv, int* lines, long* dmin, long* dhour,
                long* dday, long* dmonth, long* dyear, int* showdate, char* datetime)
 {
     int opt, index;
-    char *usage = "Usage:\n"
-                  "%s [<options>] [<date> [<time>]]\n\n"
-                  "Options:\n"
-                  "   -l n     n = lines to generate (default: 23)\n"
-                  "   -m n     n = +/- change in minutes\n"
-                  "   -h n     n = +/- change in hours\n"
-                  "   -d n     n = +/- change in days\n"
-                  "   -M n     n = +/- change in months\n"
-                  "   -y n     n = +/- change in years\n"
-                  "   -s       display date of moon phase being shown\n"
-                  "   --help   display this message\n\n"
-                  "Where:\n"
-                  "   <date>   = start date (DD MMM YYYY)\n"
-                  "   <time>   = start time (HH:MM[:SS] [AM|PM] [TZ])\n\n";
 
     opterr = 0;
 
@@ -240,7 +242,7 @@ parse_args(int argc, char** argv, int* lines, long* dmin, long* dhour,
             else
               fprintf (stderr, "Unknown option character `\\x%x'.\n\n", optopt);
 
-            fprintf (stderr, usage, argv[0]);
+            fprintf (stderr, USAGE, argv[0]);
             return -1;
         default:
             abort();
@@ -867,7 +869,9 @@ main( int argc, char** argv )
 
   if (start_time == ((time_t)-1))
   {
-    (void) fprintf(stderr, "Failure to obtain the start time.\n");
+  	fprintf(stderr, "%s %s %s\n\n", TITLE, VERSION, VDATE);
+    fprintf(stderr, "Failure to obtain the start time.\n\n");
+    fprintf(stderr, USAGE, argv[0]);
     exit(EXIT_FAILURE);
   }
 
