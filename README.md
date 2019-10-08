@@ -1,5 +1,10 @@
-### Phases of the Moon v03b (6 Oct 2019)
+### phoon - PHase of the mOON v03b (6 Oct 2019)
 Forked from  https://acme.com/software/phoon/
+
+phoon - program to display the PHase of the mOON.  Unlike other
+such programs, which just tell you how long since first quarter
+or something like that, phoon *shows* you the phase with a little
+picture.
 
 This is a fork Jef Poskanzer's C source for Phoon (https://acme.com/software/phoon/). I've add some command line options 
 which allow you to add/subract time from the command line along with the necessary bits needed to compile it for an Amiga.
@@ -8,7 +13,7 @@ Amiga style arguments:
 ```
 L=LINES/K/N,M=MIN/K/N,H=HOUR/K/N,D=DAY/K/N,MO=MONTH/K/N,Y=YEAR/K/N,SD=SHOWDATE/S,HELP/S,DATETIME/F
 
-Phoon: Phases of the Moon v03b (6 Oct 2019)
+phoon: PHase of the mOON v03b (6 Oct 2019)
 
 Usage:
 phoon [<options>] [<date> [<time>]]
@@ -31,7 +36,7 @@ Where:
 
 POSIX style arguments:
 ```
-Phoon: Phases of the Moon v03b (6 Oct 2019)
+phoon: PHase of the mOON v03b (6 Oct 2019)
 
 Usage:
 phoon [<options>] [<date> [<time>]]
@@ -52,7 +57,7 @@ Where:
 ```
 
 
-Original README
+Contents of Jef's original README file:
 ```
 		phoon - display current moon phase
 
