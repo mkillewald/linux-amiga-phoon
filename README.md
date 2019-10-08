@@ -1,4 +1,4 @@
-## phoon - PHase of the mOON v03b (6 Oct 2019)
+## phoon - PHase of the mOON (6 Oct 2019)
 Forked from  https://acme.com/software/phoon/
 
 phoon - program to display the PHase of the mOON.  Unlike other
@@ -17,7 +17,7 @@ Amiga style arguments:
 ```
 L=LINES/K/N,M=MIN/K/N,H=HOUR/K/N,D=DAY/K/N,MO=MONTH/K/N,Y=YEAR/K/N,SD=SHOWDATE/S,HELP/S,DATETIME/F
 
-phoon: PHase of the mOON v03b (6 Oct 2019)
+phoon: PHase of the mOON 0.3 (6 Oct 2019)
 
 Usage:
 phoon [<options>] [<date> [<time>]]
