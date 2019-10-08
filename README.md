@@ -6,8 +6,8 @@ which allow you to add/subract time from the command line along with the necessa
 
 Mike Killewald 
 
-
-###		phoon - display current moon phase
+```
+		phoon - display current moon phase
 
 
 phoon - program to display the PHase of the mOON.  Unlike other
@@ -57,3 +57,5 @@ checks, money orders, etc. to the addresses below.
           `-. 
              `--
                  `--
+
+```
