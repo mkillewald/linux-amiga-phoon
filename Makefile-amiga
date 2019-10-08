@@ -6,15 +6,15 @@ CC      = m68k-amigaos-gcc
 CFLAGS  = -O -noixemul $(DEFINES) -Wall -Wpointer-arith -Wshadow -Wcast-qual -Wcast-align -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wredundant-decls -Wno-long-long
 LDFLAGS = -s
 
-all:    phoon
+all:	phoon
 
-phoon:  phoon.o date_parse.o date_calc.o astro.o
-  $(CC) $(CFLAGS) -o ./amiga/phoon phoon.o date_parse.o date_calc.o astro.o $(LDFLAGS)
+phoon:	phoon.o date_parse.o date_calc.o astro.o
+	$(CC) $(CFLAGS) -o ./amiga/phoon phoon.o date_parse.o date_calc.o astro.o $(LDFLAGS)
 
-phoon.o:        phoon.c
-date_parse.o:   date_parse.h
-date_calc.o:    date_calc.h
-astro.o:        astro.h
+phoon.o:		phoon.c
+date_parse.o:	date_parse.h
+date_calc.o:	date_calc.h
+astro.o:		astro.h
 
 clean:
-  rm -f ./amiga/phoon *.o a.out cor
+	rm -f ./amiga/phoon *.o a.out cor
