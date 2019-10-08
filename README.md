@@ -1,4 +1,4 @@
-## phoon - PHase of the mOON v03b (6 Oct 2019)
+## phoon - PHase of the mOON (6 Oct 2019)
 Forked from  https://acme.com/software/phoon/
 
 phoon - program to display the PHase of the mOON.  Unlike other
