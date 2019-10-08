@@ -9,7 +9,7 @@ LDFLAGS = -s
 all:    phoon
 
 phoon:  phoon.o date_parse.o date_calc.o astro.o
-	$(CC) $(CFLAGS) -o ./amiga/phoon phoon.o date_parse.o date_calc.o astro.o $(LDFLAGS)
+  $(CC) $(CFLAGS) -o ./amiga/phoon phoon.o date_parse.o date_calc.o astro.o $(LDFLAGS)
 
 phoon.o:        phoon.c
 date_parse.o:   date_parse.h
@@ -17,4 +17,4 @@ date_calc.o:    date_calc.h
 astro.o:        astro.h
 
 clean:
-	rm -f ./amiga/phoon *.o a.out cor
+  rm -f ./amiga/phoon *.o a.out cor
