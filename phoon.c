@@ -80,7 +80,7 @@
 /* Global defines and declarations. */
 #define TITLE "phoon: PHase of the mOON"
 #define VERSION "v03b"
-#define VDATE "(6 Oct 2019)"
+#define VDATE "(8 Oct 2019)"
 
 #ifdef AMIGA
 #undef VERSION
