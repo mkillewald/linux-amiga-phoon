@@ -179,7 +179,7 @@ parse_amiga_args(char** argv, int* lines, LONG* dmin, LONG* dhour, LONG* dday,
 
 #else
 
-/* parse ISO C style commnand line arguments */
+/* parse POSIX style commnand line arguments */
 static int
 parse_args(int argc, char** argv, int* lines, long* dmin, long* dhour,
                long* dday, long* dmonth, long* dyear, int* showdate, char* datetime)
