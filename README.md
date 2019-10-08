@@ -4,7 +4,6 @@ Forked from  https://acme.com/software/phoon/
 This is a fork Jef Poskanzer's C source for Phoon (https://acme.com/software/phoon/). I've add some command line options 
 which allow you to add/subract time from the command line along with the necessary bits needed to compile it for an Amiga.
 
-Mike Killewald 
 
 ```
 		phoon - display current moon phase
