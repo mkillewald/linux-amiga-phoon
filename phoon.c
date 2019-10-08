@@ -88,19 +88,19 @@
 #define VERSTAG "\0$VER: " TITLE " " VERSION
 #define TEMPLATE "L=LINES/K/N,M=MIN/K/N,H=HOUR/K/N,D=DAY/K/N,MO=MONTH/K/N,Y=YEAR/K/N,SD=SHOWDATE/S,HELP/S,DATETIME/F"
 #define USAGE "Usage:\n"\
-	            "%s [<options>] [<date> [<time>]]\n\n"\
-	            "Options:\n"\
-	            "   L, LINES n    n = lines to generate (default: 23)\n"\
-	            "   M, MIN n      n = +/- change in minutes\n"\
-	            "   H, HOUR n     n = +/- change in hours\n"\
-	            "   D, DAY n      n = +/- change in days\n"\
-	            "   MO, MONTH n   n = +/- change in months\n"\
-	            "   Y, YEAR n     n = +/- change in years\n"\
-	            "   SD, SHOWDATE  display date of moon phase being shown\n"\
-	            "   HELP          display this message\n\n"\
-	            "Where:\n"\
-	            "   <date>   = start date (DD MMM YYYY)\n"\
-	            "   <time>   = start time (HH:MM[:SS] [AM|PM] [TZ])\n\n"
+              "%s [<options>] [<date> [<time>]]\n\n"\
+              "Options:\n"\
+              "   L, LINES n    n = lines to generate (default: 23)\n"\
+              "   M, MIN n      n = +/- change in minutes\n"\
+              "   H, HOUR n     n = +/- change in hours\n"\
+              "   D, DAY n      n = +/- change in days\n"\
+              "   MO, MONTH n   n = +/- change in months\n"\
+              "   Y, YEAR n     n = +/- change in years\n"\
+              "   SD, SHOWDATE  display date of moon phase being shown\n"\
+              "   HELP          display this message\n\n"\
+              "Where:\n"\
+              "   <date>   = start date (DD MMM YYYY)\n"\
+              "   <time>   = start time (HH:MM[:SS] [AM|PM] [TZ])\n\n"
 #else
 #define USAGE "Usage:\n"\
               "%s [<options>] [<date> [<time>]]\n\n"\
@@ -188,7 +188,7 @@ parse_amiga_args(char** argv, int* lines, LONG* dmin, LONG* dhour, LONG* dday,
     }
     else
     {
-    	  fprintf(stderr, "%s %s %s\n\n", TITLE, VERSION, VDATE);
+        fprintf(stderr, "%s %s %s\n\n", TITLE, VERSION, VDATE);
         fprintf(stderr, "\n**Invalid arguments\n\n");
         fprintf(stderr, USAGE, argv[0]);
 
@@ -876,7 +876,7 @@ main( int argc, char** argv )
 
   if (start_time == ((time_t)-1))
   {
-  	fprintf(stderr, "%s %s %s\n\n", TITLE, VERSION, VDATE);
+    fprintf(stderr, "%s %s %s\n\n", TITLE, VERSION, VDATE);
     fprintf(stderr, "Failure to obtain the start time.\n\n");
     fprintf(stderr, USAGE, argv[0]);
     exit(EXIT_FAILURE);
