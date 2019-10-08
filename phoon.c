@@ -851,7 +851,7 @@ main( int argc, char** argv )
   #ifdef AMIGA /* parse Amiga style commamnd line args */
   if (parse_amiga_args(argv, &numlines, &dmin, &dhour, &dday, &dmonth, &dyear, &showdate, (STRPTR)datetime) != 0)
       exit(EXIT_FAILURE);
-  #else /* parse ISO C style command line args */
+  #else /* parse POSIX style command line args */
   if (parse_args(argc, argv, &numlines, &dmin, &dhour, &dday, &dmonth, &dyear, &showdate, datetime) != 0)
       exit(EXIT_FAILURE);
   #endif /* AMIGA */
