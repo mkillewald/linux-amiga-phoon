@@ -85,7 +85,7 @@
 #ifdef AMIGA
 #undef VERSION
 #define VERSION "0.3"
-#define AMIGA_VER "$VER: " TITLE " " VERSION
+#define VERSTAG "\0$VER: " TITLE " " VERSION
 #define TEMPLATE "L=LINES/K/N,M=MIN/K/N,H=HOUR/K/N,D=DAY/K/N,MO=MONTH/K/N,Y=YEAR/K/N,SD=SHOWDATE/S,HELP/S,DATETIME/F"
 #define USAGE "Usage:\n"\
 	            "%s [<options>] [<date> [<time>]]\n\n"\
@@ -845,7 +845,7 @@ main( int argc, char** argv )
   struct tm *tm;
   
   #ifdef AMIGA
-  const char __ver[40] = AMIGA_VER;
+  const char __ver[40] = VERSTAG;
   #endif
   
   numlines = DEFAULTNUMLINES;
