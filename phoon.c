@@ -2,7 +2,7 @@
 **
 ** ver  date   who remarks
 ** --- ------- --- -------------------------------------------------------------
-** 03B 06oct19 MK  Mike Killewald <mkillewald yahoo com>
+** 03B 08oct19 MK  Mike Killewald <mkillewald yahoo com>
 **                 Added #ifdef AMIGA (astro.c, phoon.c)
 **                 Added phasehunt6 (astro.c)
 **                 Added hubert23, pumpkin23 (phoon.c)
