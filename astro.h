@@ -17,6 +17,15 @@ double unix_to_julian( time_t t );
 void phasehunt5( double sdate, double phases[5] );
 
 /*
+ * PHASEHUNT6  --  Find time of phases of the moon which surround
+ *		the current date.  Six phases are found, starting
+ *		with the new moon which preceeds the current lunation
+ *    and ending with the next new moon and first quarter
+ *    succeeding the current lunation 
+ */
+void phasehunt6( double sdate, double phases[6] );
+
+/*
  * PHASEHUNT2  --  Find time of phases of the moon which surround
  *		the current date.  Two phases are found.
  */

@@ -15,7 +15,7 @@ LDFLAGS =	-s
 all:		phoon
 
 phoon:		phoon.o date_parse.o astro.o
-	$(CC) $(LDFLAGS) -o phoon phoon.o date_parse.o astro.o -lm
+	$(CC) $(LDFLAGS) -o ./linux/phoon phoon.o date_parse.o astro.o -lm
 
 .c.o:
 	$(CC) $(CFLAGS) -c $<
@@ -30,4 +30,4 @@ install:	all
 	cp phoon.1 $(MANDIR)
 
 clean:
-	rm -f phoon *.o a.out core
+	rm -f ./linux/phoon *.o a.out core

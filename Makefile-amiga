@@ -1,0 +1,21 @@
+# Makefile for phoon
+
+all:	phoon
+
+CC      = m68k-amigaos-gcc
+
+CFLAGS  = -O -noixemul $(DEFINES) -DAMIGA -ansi -pedantic -U__STRICT_ANSI__ -Wall -Wpointer-arith -Wshadow -Wcast-qual -Wcast-align -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wredundant-decls -Wno-long-long
+
+LDFLAGS = -s
+
+phoon.o:	phoon.c 
+
+date_parse.o:	date_parse.h
+
+astro.o:	astro.h
+
+phoon:	 	phoon.o date_parse.o astro.o
+	${CC} ${CFLAGS} -o ./amiga/phoon phoon.o date_parse.o astro.o ${LDFLAGS}
+
+clean:
+	rm -f ./amiga/phoon *.o a.out cor

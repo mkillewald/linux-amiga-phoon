@@ -1,6 +1,6 @@
-/* date_parse.h - parse string dates into internal form
+/* date_calc - add minutes, hours, days, months or years to a given date
 **
-** Copyright © 1995 by Jef Poskanzer <jef@mail.acme.com>.
+** Copyright Â© 2019 by Mike Killewald <mkillewald yahoo.com>
 ** All rights reserved.
 **
 ** Redistribution and use in source and binary forms, with or without
@@ -25,9 +25,21 @@
 ** SUCH DAMAGE.
 */
 
-#ifndef _DATE_PARSE_H_
-#define _DATE_PARSE_H_
+#ifndef _DATE_CALC_H_
+#define _DATE_CALC_H_
 
-time_t date_parse( char* str );
+/*
+ * DATE_CALC  -- Add or subtract minutes, hours, days, months, or
+ *     years to or from a given date.
+ * 
+ * @param t      the time struct we will be performing calculations on  
+ * @param dmin   the +/- change in minutes
+ * @param dhour  the +/- change in hours
+ * @param dday   the +/- change in days
+ * @param dmonth the +/- change in months
+ * @param dyear  the +/- change in years
+ *
+ */
+void date_calc(struct tm* t, long dmin, long dhour, long dday, long dmonth, long dyear);
 
-#endif /* _DATE_PARSE_H_ */
+#endif /* _DATE_CALC_H_ */

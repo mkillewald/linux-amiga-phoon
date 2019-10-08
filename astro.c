@@ -30,8 +30,16 @@
 #include <math.h>
 #include <time.h>
 
-#include "astro.h"
+#ifdef AMIGA
+#include <clib/exec_protos.h>
+#include <libraries/mathlibrary.h>
+#include <libraries/mathieeedp.h>
 
+#include <clib/mathieeedoubbas_protos.h>
+#include <clib/mathieeedoubtrans_protos.h>
+#endif
+
+#include "astro.h"
 
 #define FALSE 0
 #define TRUE 1
@@ -71,7 +79,6 @@
 /*  Properties of the Earth  */
 
 #define earthrad    6378.16	   /* Radius of Earth in kilometres */
-
 
 #define PI 3.14159265358979323846  /* Assume not near black hole nor in
 				      Tennessee */
@@ -281,6 +288,42 @@ phasehunt5( double sdate, double phases[5] )
 	phases [4] = truephase (k2, 0.0);
 }
 
+/*
+ * PHASEHUNT6  --  Find time of phases of the moon which surround
+ *		the current date.  Six phases are found, starting
+ *		with the new moon which preceeds the current lunation
+ *    and ending with the next new moon and first quarter
+ *    succeeding the current lunation 
+ */
+void
+phasehunt6( double sdate, double phases[6] )
+{
+	double	adate, k1, k2, nt1, nt2;
+	int	yy, mm, dd;
+
+	adate = sdate - 45;
+
+	jyear(adate, &yy, &mm, &dd);
+	k1 = floor((yy + ((mm - 1) * (1.0 / 12.0)) - 1900) * 12.3685);
+
+	adate = nt1 = meanphase(adate, k1);
+	while (TRUE) {
+		adate += synmonth;
+		k2 = k1 + 1;
+		nt2 = meanphase(adate, k2);
+		if (nt1 <= sdate && nt2 > sdate)
+			break;
+		nt1 = nt2;
+		k1 = k2;
+	}
+	phases [0] = truephase (k1, 0.0);
+	phases [1] = truephase (k1, 0.25);
+	phases [2] = truephase (k1, 0.5);
+	phases [3] = truephase (k1, 0.75);
+	phases [4] = truephase (k2, 0.0);
+	phases [5] = truephase (k2, 0.25);
+}
+
 
 /*
  * PHASEHUNT2  --  Find time of phases of the moon which surround
@@ -289,28 +332,34 @@ phasehunt5( double sdate, double phases[5] )
 void
 phasehunt2( double sdate, double phases[2], double which[2] )
 {
-	double phases5[5];
+	double phases6[6];
 
-	phasehunt5( sdate, phases5 );
-	phases[0] = phases5[0];
+	phasehunt6( sdate, phases6 );
+	phases[0] = phases6[0];
 	which[0] = 0.0;
-	phases[1] = phases5[1];
+	phases[1] = phases6[1];
 	which[1] = 0.25;
 	if ( phases[1] <= sdate ) {
 		phases[0] = phases[1];
 		which[0] = which[1];
-		phases[1] = phases5[2];
+		phases[1] = phases6[2];
 		which[1] = 0.5;
 		if ( phases[1] <= sdate ) {
 			phases[0] = phases[1];
 			which[0] = which[1];
-			phases[1] = phases5[3];
+			phases[1] = phases6[3];
 			which[1] = 0.75;
 			if ( phases[1] <= sdate ) {
 				phases[0] = phases[1];
 				which[0] = which[1];
-				phases[1] = phases5[4];
+				phases[1] = phases6[4];
 				which[1] = 0.0;
+				if ( phases[1] <= sdate ) {
+					phases[0] = phases[1];
+					which[0] = which[1];
+					phases[1] = phases6[5];
+					which[1] = 0.25;		  
+				}  
 			}
 		}
 	}
@@ -429,8 +478,10 @@ phase( double pdate, double* pphase, double* mage, double* dist, double* angdia,
 	x = cos(torad(lPP - NP));
 
 	/* Ecliptic longitude */
+	#ifndef AMIGA /* Amiga libraries don't seem to have an atan2 function */
 	Lambdamoon = todeg(atan2(y, x));
 	Lambdamoon += NP;
+	#endif /* ifndef AMIGA */
 
 	/* Ecliptic latitude */
 	BetaM = todeg(asin(sin(torad(lPP - NP)) * sin(torad(minc))));
