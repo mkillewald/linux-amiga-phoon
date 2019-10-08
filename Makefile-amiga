@@ -13,7 +13,7 @@ phoon:	 	phoon.o date_parse.o date_calc.o astro.o
 
 phoon.o:		phoon.c
 date_parse.o:	date_parse.h
-date_cacl.o:    date_calc.h
+date_calc.o:    date_calc.h
 astro.o:	    astro.h
 
 clean:
