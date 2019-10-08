@@ -29,7 +29,7 @@ Where:
 
 ```
 
-ISO C style arguments:
+POSIX style arguments:
 ```
 Phoon: Phases of the Moon v03b (6 Oct 2019)
 
