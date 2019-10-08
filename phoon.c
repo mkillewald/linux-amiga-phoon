@@ -83,21 +83,24 @@
 #define VDATE "(6 Oct 2019)"
 
 #ifdef AMIGA
+#undef VERSION
+#define VERSION "0.3"
+#define AMIGA_VER "$VER: " TITLE " " VERSION
 #define TEMPLATE "L=LINES/K/N,M=MIN/K/N,H=HOUR/K/N,D=DAY/K/N,MO=MONTH/K/N,Y=YEAR/K/N,SD=SHOWDATE/S,HELP/S,DATETIME/F"
 #define USAGE "Usage:\n"\
-               "%s [<options>] [<date> [<time>]]\n\n"\
-               "Options:\n"\
-               "   L, LINES n    n = lines to generate (default: 23)\n"\
-               "   M, MIN n      n = +/- change in minutes\n"\
-               "   H, HOUR n     n = +/- change in hours\n"\
-               "   D, DAY n      n = +/- change in days\n"\
-               "   MO, MONTH n   n = +/- change in months\n"\
-               "   Y, YEAR n     n = +/- change in years\n"\
-               "   SD, SHOWDATE  display date of moon phase being shown\n"\
-               "   HELP          display this message\n\n"\
-               "Where:\n"\
-               "   <date>   = start date (DD MMM YYYY)\n"\
-               "   <time>   = start time (HH:MM[:SS] [AM|PM] [TZ])\n\n"
+	            "%s [<options>] [<date> [<time>]]\n\n"\
+	            "Options:\n"\
+	            "   L, LINES n    n = lines to generate (default: 23)\n"\
+	            "   M, MIN n      n = +/- change in minutes\n"\
+	            "   H, HOUR n     n = +/- change in hours\n"\
+	            "   D, DAY n      n = +/- change in days\n"\
+	            "   MO, MONTH n   n = +/- change in months\n"\
+	            "   Y, YEAR n     n = +/- change in years\n"\
+	            "   SD, SHOWDATE  display date of moon phase being shown\n"\
+	            "   HELP          display this message\n\n"\
+	            "Where:\n"\
+	            "   <date>   = start date (DD MMM YYYY)\n"\
+	            "   <time>   = start time (HH:MM[:SS] [AM|PM] [TZ])\n\n"
 #else
 #define USAGE "Usage:\n"\
               "%s [<options>] [<date> [<time>]]\n\n"\
@@ -172,7 +175,7 @@ parse_amiga_args(char** argv, int* lines, LONG* dmin, LONG* dhour, LONG* dday,
         if (params[7])
         {
           printf("%s %s %s\n\n", TITLE, VERSION, VDATE);
-          printf(usage, argv[0]);
+          printf(USAGE, argv[0]);
           return -1;
         }
         if (params[8])
@@ -840,7 +843,11 @@ main( int argc, char** argv )
   long dmin, dhour, dday, dmonth, dyear;
   char datetime[30], adj_time_str[50];
   struct tm *tm;
-
+  
+  #ifdef AMIGA
+  const char __ver[40] = AMIGA_VER;
+  #endif
+  
   numlines = DEFAULTNUMLINES;
   dmin = 0;
   dhour = 0;
