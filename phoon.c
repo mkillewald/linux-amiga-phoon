@@ -78,12 +78,11 @@
 #include "astro.h"
 
 /* Global defines and declarations. */
-#define TITLE "phoon: PHase of the mOON"
-#define VERSION "v03b"
+#define NAME "phoon"
+#define TITLE NAME ": PHase of the mOON"
 #define VDATE "(8 Oct 2019)"
 
 #ifdef AMIGA
-#undef VERSION
 #define VERSION "0.3"
 #define VERSTAG "\0$VER: " TITLE " " VERSION
 #define TEMPLATE "L=LINES/K/N,M=MIN/K/N,H=HOUR/K/N,D=DAY/K/N,MO=MONTH/K/N,Y=YEAR/K/N,SD=SHOWDATE/S,HELP/S,DATETIME/F"
@@ -102,6 +101,7 @@
               "   <date>   = start date (DD MMM YYYY)\n"\
               "   <time>   = start time (HH:MM[:SS] [AM|PM] [TZ])\n\n"
 #else
+#define VERSION "v03b"
 #define USAGE "Usage:\n"\
               "%s [<options>] [<date> [<time>]]\n\n"\
               "Options:\n"\
@@ -140,7 +140,7 @@ parse_amiga_args(char** argv, int* lines, LONG* dmin, LONG* dhour, LONG* dday,
     struct RDArgs *rdargs;
     LONG  params[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-    rdargs = ReadArgs(TEMPLATE, params, NULL);
+    rdargs = ReadArgs((STRPTR)TEMPLATE, params, NULL);
 
     if (rdargs)
     {
@@ -858,6 +858,7 @@ main( int argc, char** argv )
   datetime[0] = '\0';
 
   #ifdef AMIGA /* parse Amiga style commamnd line args */
+  (void) strlen(__ver); /* so compiler does not throw out __ver */
   if (parse_amiga_args(argv, &numlines, &dmin, &dhour, &dday, &dmonth, &dyear, &showdate, (STRPTR)datetime) != 0)
       exit(EXIT_FAILURE);
   #else /* parse POSIX style command line args */
