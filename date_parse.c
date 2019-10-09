@@ -120,6 +120,8 @@ date_parse( char* str )
 #ifdef OS_SYSV
     tzset();
     gmtoff = -timezone;
+#elif AMIGA
+	; /* no operation for now */
 #else /* OS_SYSV */
     gmtoff = now_tmP->tm_gmtoff;
 #endif /* OS_SYSV */
