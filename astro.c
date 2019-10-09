@@ -80,7 +80,7 @@
 
 #define earthrad    6378.16	   /* Radius of Earth in kilometres */
 
-#define PI 3.14159265358979323846  /* Assume not near black hole nor in
+#define KPI 3.14159265358979323846  /* Assume not near black hole nor in
 				      Tennessee */
 
 /*  Handy mathematical functions  */
@@ -88,8 +88,8 @@
 #define sgn(x) (((x) < 0) ? -1 : ((x) > 0 ? 1 : 0))	  /* Extract sign */
 #define abs(x) ((x) < 0 ? (-(x)) : (x)) 		  /* Absolute val */
 #define fixangle(a) ((a) - 360.0 * (floor((a) / 360.0)))  /* Fix angle	  */
-#define torad(d) ((d) * (PI / 180.0))			  /* Deg->Rad	  */
-#define todeg(d) ((d) * (180.0 / PI))			  /* Rad->Deg	  */
+#define torad(d) ((d) * (KPI / 180.0))			  /* Deg->Rad	  */
+#define todeg(d) ((d) * (180.0 / KPI))			  /* Rad->Deg	  */
 #define dsin(x) (sin(torad((x))))			  /* Sin from deg */
 #define dcos(x) (cos(torad((x))))			  /* Cos from deg */
 

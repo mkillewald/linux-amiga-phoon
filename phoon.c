@@ -122,7 +122,7 @@
 #define SECSPERHOUR (60 * SECSPERMINUTE)
 #define SECSPERDAY (24 * SECSPERHOUR)
 
-#define PI 3.1415926535897932384626433
+#define KPI 3.1415926535897932384626433
 
 /* If you change the aspect ratio, the canned backgrounds won't work. */
 #define ASPECTRATIO 0.5
@@ -632,11 +632,11 @@ putmoon( time_t t, int numlines, char* atfiller )
   /* Figure out the phase. */
   jd = unix_to_julian( t );
   pctphase = phase( jd, &cphase, &aom, &cdist, &cangdia, &csund, &csuang );
-  angphase = pctphase * 2.0 * PI;
+  angphase = pctphase * 2.0 * KPI;
   mcap = -cos( angphase );
 
   /* Get now for use as a random number. */
-  (void) time( &clocknow );
+  (void) time( (time_t *)&clocknow );
 
   /* Randomly cheat and generate Hubert. */
   if ( clocknow % 13 == 3 && cphase > 0.8 )
@@ -663,7 +663,7 @@ putmoon( time_t t, int numlines, char* atfiller )
     y = lin + 0.5 - yrad;
     xright = xrad * sqrt( 1.0 - ( y * y ) / ( yrad * yrad ) );
     xleft = -xright;
-    if ( angphase >= 0.0 && angphase < PI )
+    if ( angphase >= 0.0 && angphase < KPI )
     {
       xleft = mcap * xleft;
     }
