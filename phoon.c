@@ -624,7 +624,7 @@ putmoon( time_t t, int numlines, char* atfiller )
   struct tm* tmP;
   double jd, pctphase, angphase, cphase, aom, cdist, cangdia, csund, csuang;
   double phases[2], which[2];
-  long clocknow;
+  time_t clocknow;
   int atflrlen, atflridx, numcols, lin, col, midlin;
   double mcap, yrad, xrad, y, xright, xleft;
   int colright, colleft, i, j;
@@ -642,7 +642,7 @@ putmoon( time_t t, int numlines, char* atfiller )
   mcap = -cos( angphase );
 
   /* Get now for use as a random number. */
-  (void) time( (time_t *)&clocknow );
+  (void) time( &clocknow );
 
   /* Randomly cheat and generate Hubert. */
   if ( clocknow % 13 == 3 && cphase > 0.8 )
