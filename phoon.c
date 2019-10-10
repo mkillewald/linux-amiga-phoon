@@ -758,7 +758,7 @@ putmoon( time_t t, int numlines, char* atfiller )
     #ifdef notdef
     for ( ; col <= numcols; ++col )
     {
-      strcat(line, " ");
+      strncat(line, " ", 1);
     }
     #endif /* notdef */
 
@@ -793,7 +793,7 @@ putmoon( time_t t, int numlines, char* atfiller )
           {
             for ( j=1; (j=maxline-strlen(infoline[i])); j++ )
             {
-              strcat(infoline[i], " ");
+              strncat(infoline[i], " ", 1);
             }
           }
           #else
@@ -801,7 +801,7 @@ putmoon( time_t t, int numlines, char* atfiller )
           {
             for ( j=1; (j=maxline-strnlen(infoline[i], LINELENGTH)); j++ )
             {
-              strcat(infoline[i], " ");
+              strncat(infoline[i], " ", 1);
             }
           }
           #endif /* AMIGA */
