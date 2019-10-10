@@ -67,6 +67,7 @@ struct strlong {
 #define AMPM_AM 1
 #define AMPM_PM 2
 
+static time_t date_parse_internal( char* str, char* str_gmtoff_r, long* gmtoff_r );
 static void pound_case( char* str );
 static int strlong_compare( const void* v1, const void* v2 );
 static int strlong_search( char* str, struct strlong* tab, int n, long* lP );
@@ -78,9 +79,8 @@ static int scan_gmtoff( char* str_gmtoff, long* gmtoffP );
 static int is_leap( int year );
 static time_t tm_to_time( struct tm* tmP );
 
-
-time_t
-date_parse( char* str )
+static time_t
+date_parse_internal( char* str, char* str_gmtoff_r, long* gmtoff_r )
     {
     time_t now;
     struct tm* now_tmP;
