@@ -285,6 +285,12 @@ trim(char *str)
 }
 
 static void
+center(char *s, int width)
+{
+	printf("%*s%*s\n",(width/2)+strlen(s)/2,s,(width/2)-strlen(s)/2,"");
+}
+
+static void
 putseconds( long secs )
 {
   long days, hours, minutes;
