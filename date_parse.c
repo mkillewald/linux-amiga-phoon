@@ -69,6 +69,7 @@ struct strlong {
 
 static time_t date_parse_internal( char* str, char* str_gmtoff_r, long* gmtoff_r );
 static void pound_case( char* str );
+static void upper_case( char* str );
 static int strlong_compare( const void* v1, const void* v2 );
 static int strlong_search( char* str, struct strlong* tab, int n, long* lP );
 static int ampm_fix( int hour, int ampm );
@@ -809,21 +810,47 @@ date_parse_internal( char* str, char* str_gmtoff_r, long* gmtoff_r )
     if ( tm.tm_isdst && ! got_zone )
 	t -= 60*60;
 #endif
-
+		
+		if ( got_zone && str_gmtoff_r != NULL && gmtoff_r != NULL )
+		{
+			memcpy(str_gmtoff_r, str_gmtoff, sizeof(str_gmtoff) );
+			upper_case(str_gmtoff_r);
+			*gmtoff_r = gmtoff;
+		}
     return t;
-    }
+   }
 
+time_t
+date_parse( char* str )
+{
+	return date_parse_internal(str, NULL, NULL);
+}
+
+time_t
+date_parse_r( char* str, char* str_gmtoff_r, long* gmtoff_r )
+{
+	return date_parse_internal( str, str_gmtoff_r, gmtoff_r );
+}
 
 static void
 pound_case( char* str )
-    {
-    for ( ; *str != '\0'; ++str )
+{
+	for ( ; *str != '\0'; ++str )
 	{
-	if ( isupper( (int) *str ) )
-	    *str = tolower( (int) *str );
+		if ( isupper( (int) *str ) )*
+			str = tolower( (int) *str );
 	}
-    }
+}
 
+static void
+upper_case( char* str)
+{
+	for ( ; *str != '\0'; ++str )
+	{
+		if ( islower( (int) *str ) )*
+			str = toupper( (int) *str );
+	}
+}
 
 static int
 strlong_compare( const void* v1, const void* v2 )
