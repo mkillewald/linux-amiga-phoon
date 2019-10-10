@@ -846,8 +846,8 @@ main( int argc, char** argv )
 {
   time_t t, start_time;
   int numlines, showdate;
-  long dmin, dhour, dday, dmonth, dyear;
-  char datetime[30], adj_time_str[50];
+  long dmin, dhour, dday, dmonth, dyear, gmtoff;
+  char datetime[30], adj_time_str[50], str_gmtoff[500];
   struct tm *tm;
   
   #ifdef AMIGA
@@ -876,7 +876,7 @@ main( int argc, char** argv )
 
   if (datetime[0] != '\0')
     /* start time supplied from command line */
-    start_time = date_parse(datetime);
+    start_time = date_parse_r(datetime, str_gmtoff, &gmtoff);
   else
     /* start time is current time */
     start_time= time(NULL);
@@ -895,19 +895,6 @@ main( int argc, char** argv )
 
   date_calc(tm, dmin, dhour, dday, dmonth, dyear);
 
-  if (showdate == 1)
-  {
-    #ifdef AMIGA
-    /*strftime(adj_time_str, sizeof(adj_time_str), "%e %b %Y %I:%M:%S %p GMT", at);*/
-    strftime(adj_time_str, sizeof(adj_time_str), "%e %b %Y %I:%M:%S %p %Z", tm);
-    #else
-    strftime(adj_time_str, sizeof(adj_time_str), "%e %b %Y %I:%M:%S %p %Z", tm);
-    #endif /* AMIGA */
-
-    trim(adj_time_str);
-    printf("%s\n", adj_time_str);
-  }
-
   t = mktime(tm);
 
   /* Pseudo-randomly decide what the moon is made of, and print it. */
@@ -918,6 +905,28 @@ main( int argc, char** argv )
   else
   {
     putmoon( t, numlines, "@" );
+  }
+  
+  if (showdate == 1)
+  {
+    #ifdef AMIGA
+    if (datetime[0] != '\0')
+    {
+    	t += gmtoff;
+    	tm = localtime(&t);
+    	strftime(adj_time_str, sizeof(adj_time_str), "%e %b %Y %I:%M %p ", tm);
+    	strncat(adj_time_str, str_gmtoff, strlen(adj_time_str)-1);
+    }
+    else
+    {
+    	strftime(adj_time_str, sizeof(adj_time_str), "%e %b %Y %I:%M %p GMT", tm);
+    }
+    #else
+    strftime(adj_time_str, sizeof(adj_time_str), "%e %b %Y %I:%M %p %Z", tm);
+    #endif /* AMIGA */
+
+    trim(adj_time_str);
+    center(adj_time_str, (numlines*2)+2);
   }
 
   /* All done. */
