@@ -137,64 +137,64 @@ static int
 parse_amiga_args(char** argv, int* lines, LONG* dmin, LONG* dhour, LONG* dday,
                  LONG* dmonth, LONG* dyear, int* showdate, char* datetime)
 {
-    struct RDArgs *rdargs;
-    LONG  params[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+  struct RDArgs *rdargs;
+  LONG  params[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-    rdargs = ReadArgs((STRPTR)TEMPLATE, params, NULL);
+  rdargs = ReadArgs((STRPTR)TEMPLATE, params, NULL);
 
-    if (rdargs)
+  if (rdargs)
+  {
+    if (params[0])
     {
-        if (params[0])
-        {
-          *lines = *(int *)params[0];
-        }
-        if (params[1])
-        {
-          *dmin = *(LONG *)params[1];
-        }
-        if (params[2])
-        {
-          *dhour = *(LONG *)params[2];
-        }
-        if (params[3])
-        {
-          *dday = *(LONG *)params[3];
-        }
-        if (params[4])
-        {
-          *dmonth = *(LONG *)params[4];
-        }
-        if (params[5])
-        {
-          *dyear = *(LONG *)params[5];
-        }
-        if (params[6])
-        {
-          *showdate = 1;
-        }
-        if (params[7])
-        {
-          printf("%s %s %s\n\n", TITLE, VERSION, VDATE);
-          printf(USAGE, argv[0]);
-          return -1;
-        }
-        if (params[8])
-        {
-          strncpy(datetime, (char *)params[8], 30);
-          datetime[29] = 0;
-        }
-
-        FreeArgs(rdargs);
-        return 0;
+      *lines = *(int *)params[0];
     }
-    else
+    if (params[1])
     {
-        fprintf(stderr, "%s %s %s\n\n", TITLE, VERSION, VDATE);
-        fprintf(stderr, "\n**Invalid arguments\n\n");
-        fprintf(stderr, USAGE, argv[0]);
-
-        return -1;
+      *dmin = *(LONG *)params[1];
     }
+    if (params[2])
+    {
+      *dhour = *(LONG *)params[2];
+    }
+    if (params[3])
+    {
+      *dday = *(LONG *)params[3];
+    }
+    if (params[4])
+    {
+      *dmonth = *(LONG *)params[4];
+    }
+    if (params[5])
+    {
+      *dyear = *(LONG *)params[5];
+    }
+    if (params[6])
+    {
+      *showdate = 1;
+    }
+    if (params[7])
+    {
+      printf("%s %s %s\n\n", TITLE, VERSION, VDATE);
+      printf(USAGE, argv[0]);
+      return -1;
+    }
+    if (params[8])
+    {
+      strncpy(datetime, (char *)params[8], 30);
+      datetime[29] = 0;
+    }
+
+    FreeArgs(rdargs);
+    return 0;
+  }
+  else
+  {
+    fprintf(stderr, "%s %s %s\n\n", TITLE, VERSION, VDATE);
+    fprintf(stderr, "\n**Invalid arguments\n\n");
+    fprintf(stderr, USAGE, argv[0]);
+
+    return -1;
+  }
 }
 
 #else
@@ -204,91 +204,92 @@ static int
 parse_args(int argc, char** argv, int* lines, long* dmin, long* dhour,
                long* dday, long* dmonth, long* dyear, int* showdate, char* datetime)
 {
-    int opt, index;
+  int opt, index;
 
-    opterr = 0;
+  opterr = 0;
 
-    while ((opt = getopt(argc, argv, "l:m:h:d:M:y:s")) != -1)
+  while ((opt = getopt(argc, argv, "l:m:h:d:M:y:s")) != -1)
+  {
+    switch (opt)
     {
-        switch (opt)
-        {
-        case 'l':
-            *lines = (int) strtol(optarg, NULL, 10);
-            break;
-        case 'm':
-            *dmin = strtol(optarg, NULL, 10);
-            break;
-        case 'h':
-            *dhour = strtol(optarg, NULL, 10);
-            break;
-        case 'd':
-            *dday = strtol(optarg, NULL, 10);
-            break;
-        case 'M':
-            *dmonth = strtol(optarg, NULL, 10);
-            break;
-        case 'y':
-            *dyear = strtol(optarg, NULL, 10);
-            break;
-        case 's':
-            *showdate = 1;
-            break;
-        case '?':
-            fprintf(stderr, "%s %s %s\n\n", TITLE, VERSION, VDATE);
+    case 'l':
+      *lines = (int) strtol(optarg, NULL, 10);
+      break;
+    case 'm':
+      *dmin = strtol(optarg, NULL, 10);
+      break;
+    case 'h':
+      *dhour = strtol(optarg, NULL, 10);
+      break;
+    case 'd':
+      *dday = strtol(optarg, NULL, 10);
+      break;
+    case 'M':
+      *dmonth = strtol(optarg, NULL, 10);
+      break;
+    case 'y':
+      *dyear = strtol(optarg, NULL, 10);
+      break;
+    case 's':
+      *showdate = 1;
+      break;
+    case '?':
+      fprintf(stderr, "%s %s %s\n\n", TITLE, VERSION, VDATE);
 
-            if (optopt == 'l' || optopt == 'm' || optopt == 'h' || optopt == 'd' ||
-                optopt == 'M' || optopt == 'y' )
-              fprintf (stderr, "Option -%c requires an argument.\n\n", optopt);
-            else if (optopt == '-') /* "--help" lands here */
-              ; /* no operation */
-            else if (isprint (optopt))
-              fprintf (stderr, "Unknown option `-%c'.\n\n", optopt);
-            else
-              fprintf (stderr, "Unknown option character `\\x%x'.\n\n", optopt);
+      if (optopt == 'l' || optopt == 'm' || optopt == 'h' || optopt == 'd' ||
+          optopt == 'M' || optopt == 'y' )
+        fprintf (stderr, "Option -%c requires an argument.\n\n", optopt);
+      else if (optopt == '-') /* "--help" lands here */
+        ; /* no operation */
+      else if (isprint (optopt))
+        fprintf (stderr, "Unknown option `-%c'.\n\n", optopt);
+      else
+        fprintf (stderr, "Unknown option character `\\x%x'.\n\n", optopt);
 
-            fprintf (stderr, USAGE, argv[0]);
-            return -1;
-        default:
-            abort();
-        }
+      fprintf (stderr, USAGE, argv[0]);
+      return -1;
+    default:
+      abort();
     }
+  }
 
-    /* at this point, optind points to the first non option argument */
-    for (index=optind; index < argc; index++)
-    {
-        if (strnlen(datetime, 30)>=30 || index > optind+5) break;
-        strncat(datetime, argv[index], 8);
-        strncat(datetime, " ", 1);
-    }
+  /* at this point, optind points to the first non option argument */
+  for (index=optind; index < argc; index++)
+  {
+    if (strnlen(datetime, 30)>=30 || index > optind+5)
+      break;
+    strncat(datetime, argv[index], 8);
+    strncat(datetime, " ", 1);
+  }
 
-    return 0;
+  return 0;
 }
 #endif /* AMIGA */
 
 static void
 trim(char *str)
 {
-    int i;
-    int begin = 0;
-    int end = strlen(str) - 1;
+  int i;
+  int begin = 0;
+  int end = strlen(str) - 1;
 
-    while (isspace((unsigned char) str[begin]))
-        begin++;
+  while (isspace((unsigned char) str[begin]))
+    begin++;
 
-    while ((end >= begin) && isspace((unsigned char) str[end]))
-        end--;
+  while ((end >= begin) && isspace((unsigned char) str[end]))
+    end--;
 
-    /* Shift all characters back to the start of the string array. */
-    for (i = begin; i <= end; i++)
-        str[i - begin] = str[i];
+  /* Shift all characters back to the start of the string array. */
+  for (i = begin; i <= end; i++)
+    str[i - begin] = str[i];
 
-    str[i - begin] = '\0'; /* Null terminate string. */
+  str[i - begin] = '\0'; /* Null terminate string. */
 }
 
 static void
 center(char *s, int width)
 {
-	printf("%*s%*s\n",(width/2)+strlen(s)/2,s,(width/2)-strlen(s)/2,"");
+  printf("%*s%*s\n",(width/2)+strlen(s)/2,s,(width/2)-strlen(s)/2,"");
 }
 
 static void
@@ -867,10 +868,10 @@ main( int argc, char** argv )
   #ifdef AMIGA /* parse Amiga style commamnd line args */
   (void) strlen(__ver); /* so compiler does not throw out __ver */
   if (parse_amiga_args(argv, &numlines, &dmin, &dhour, &dday, &dmonth, &dyear, &showdate, datetime) != 0)
-      exit(EXIT_FAILURE);
+    exit(EXIT_FAILURE);
   #else /* parse POSIX style command line args */
   if (parse_args(argc, argv, &numlines, &dmin, &dhour, &dday, &dmonth, &dyear, &showdate, datetime) != 0)
-      exit(EXIT_FAILURE);
+    exit(EXIT_FAILURE);
   #endif /* AMIGA */
 
   if ( numlines >= MAXNUMLINES ) numlines = MAXNUMLINES-1;
@@ -913,14 +914,14 @@ main( int argc, char** argv )
     #ifdef AMIGA
     if (str_gmtoff[0] != '\0')
     {
-    	t += gmtoff;
-    	tm = localtime(&t);
-    	strftime(adj_time_str, sizeof(adj_time_str), "%e %b %Y %I:%M %p ", tm);
-    	strncat(adj_time_str, str_gmtoff, strlen(adj_time_str)-1);
+      t += gmtoff;
+      tm = localtime(&t);
+      strftime(adj_time_str, sizeof(adj_time_str), "%e %b %Y %I:%M %p ", tm);
+      strncat(adj_time_str, str_gmtoff, strlen(adj_time_str)-1);
     }
     else
     {
-    	strftime(adj_time_str, sizeof(adj_time_str), "%e %b %Y %I:%M %p GMT", tm);
+      strftime(adj_time_str, sizeof(adj_time_str), "%e %b %Y %I:%M %p GMT", tm);
     }
     #else
     strftime(adj_time_str, sizeof(adj_time_str), "%e %b %Y %I:%M %p %Z", tm);
