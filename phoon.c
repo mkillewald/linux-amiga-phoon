@@ -135,7 +135,7 @@
 /* parse Amiga style command line arguments */
 static int
 parse_amiga_args(char** argv, int* lines, LONG* dmin, LONG* dhour, LONG* dday,
-                 LONG* dmonth, LONG* dyear, int* showdate, STRPTR datetime)
+                 LONG* dmonth, LONG* dyear, int* showdate, char* datetime)
 {
     struct RDArgs *rdargs;
     LONG  params[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -180,7 +180,8 @@ parse_amiga_args(char** argv, int* lines, LONG* dmin, LONG* dhour, LONG* dday,
         }
         if (params[8])
         {
-          memcpy(datetime, (STRPTR)params[8], 30);
+          strncpy(datetime, (char *)params[8], 30);
+          datetime[29] = 0;
         }
 
         FreeArgs(rdargs);
@@ -622,15 +623,11 @@ putmoon( time_t t, int numlines, char* atfiller )
     "Last Quarter - "};
 
   struct tm* tmP;
-  double jd, pctphase, angphase, cphase, aom, cdist, cangdia, csund, csuang;
-  double phases[2], which[2];
   time_t clocknow;
-  int atflrlen, atflridx, numcols, lin, col, midlin;
-  double mcap, yrad, xrad, y, xright, xleft;
-  int colright, colleft, i, j;
+  double jd, pctphase, angphase, cphase, aom, cdist, cangdia, csund, csuang,
+         phases[2], which[2], mcap, yrad, xrad, y, xright, xleft;
+  int atflrlen, atflridx, numcols, lin, col, midlin, colright, colleft, i, j, index, maxline = 0;
   char c, line[LINELENGTH], infoline[4][LINELENGTH];
-
-  int maxline = 0;
 
   /* Find the length of the atfiller string. */
   atflrlen = strlen( atfiller );
@@ -779,7 +776,9 @@ putmoon( time_t t, int numlines, char* atfiller )
           #endif /* AMIGA */
 
       /* store line until all 4 info lines have been measured */
-      strncpy(infoline[2 + lin - midlin], line, LINELENGTH);
+      index = 2 + lin - midlin;
+      strncpy(infoline[index], line, LINELENGTH);
+      infoline[index][LINELENGTH - 1] = 0;
 
       /* check if we have reached the last info line */
       if ( lin == midlin + 1 )
@@ -847,25 +846,27 @@ main( int argc, char** argv )
   time_t t, start_time;
   int numlines, showdate;
   long dmin, dhour, dday, dmonth, dyear, gmtoff;
-  char datetime[30], adj_time_str[50], str_gmtoff[500];
+  char datetime[30], adj_time_str[50], str_gmtoff[10];
   struct tm *tm;
-  
+
   #ifdef AMIGA
   const char __ver[40] = VERSTAG;
   #endif
-  
+
   numlines = DEFAULTNUMLINES;
+  showdate = 0;
   dmin = 0;
   dhour = 0;
   dday = 0;
   dmonth = 0;
   dyear = 0;
-  showdate = 0;
+  gmtoff = 0;
   datetime[0] = '\0';
+  str_gmtoff[0] ='\0';
 
   #ifdef AMIGA /* parse Amiga style commamnd line args */
   (void) strlen(__ver); /* so compiler does not throw out __ver */
-  if (parse_amiga_args(argv, &numlines, &dmin, &dhour, &dday, &dmonth, &dyear, &showdate, (STRPTR)datetime) != 0)
+  if (parse_amiga_args(argv, &numlines, &dmin, &dhour, &dday, &dmonth, &dyear, &showdate, datetime) != 0)
       exit(EXIT_FAILURE);
   #else /* parse POSIX style command line args */
   if (parse_args(argc, argv, &numlines, &dmin, &dhour, &dday, &dmonth, &dyear, &showdate, datetime) != 0)
@@ -906,11 +907,11 @@ main( int argc, char** argv )
   {
     putmoon( t, numlines, "@" );
   }
-  
+
   if (showdate == 1)
   {
     #ifdef AMIGA
-    if (datetime[0] != '\0')
+    if (str_gmtoff[0] != '\0')
     {
     	t += gmtoff;
     	tm = localtime(&t);
