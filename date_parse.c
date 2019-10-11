@@ -83,16 +83,11 @@ static time_t tm_to_time( struct tm* tmP );
 static time_t
 date_parse_internal( char* str, char* str_gmtoff_r, long* gmtoff_r )
     {
-    time_t now;
-    struct tm* now_tmP;
-    struct tm tm;
-    char* cp;
-    char str_mon[500], str_wday[500], str_gmtoff[500], str_ampm[500];
-    int tm_sec, tm_min, tm_hour, tm_mday, tm_year;
+    time_t now, t;
+    struct tm *now_tmP, tm;
+    char *cp, str_mon[500], str_wday[500], str_gmtoff[500], str_ampm[500];
+    int tm_sec, tm_min, tm_hour, tm_mday, tm_year, got_zone, i;
     long tm_mon, tm_wday, ampm, gmtoff;
-    int got_zone;
-    time_t t;
-    int i;
 
     /* If it's all digits, treat it as a raw Unix time and we're done. */
     t = strtol( str, &cp, 10 );
@@ -122,7 +117,7 @@ date_parse_internal( char* str, char* str_gmtoff_r, long* gmtoff_r )
     tzset();
     gmtoff = -timezone;
 #elif AMIGA
-	; /* no operation for now */
+		gmtoff = 0;
 #else /* OS_SYSV */
     gmtoff = now_tmP->tm_gmtoff;
 #endif /* OS_SYSV */
@@ -813,7 +808,8 @@ date_parse_internal( char* str, char* str_gmtoff_r, long* gmtoff_r )
 		
 		if ( got_zone && str_gmtoff_r != NULL && gmtoff_r != NULL )
 		{
-			memcpy(str_gmtoff_r, str_gmtoff, sizeof(str_gmtoff) );
+			strncpy(str_gmtoff_r, str_gmtoff, 10 );
+			str_gmtoff_r[9] = 0;
 			upper_case(str_gmtoff_r);
 			*gmtoff_r = gmtoff;
 		}
