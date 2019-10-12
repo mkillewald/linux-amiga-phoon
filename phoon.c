@@ -625,7 +625,8 @@ putmoon( time_t t, int numlines, char* atfiller )
   time_t clocknow;
   double jd, pctphase, angphase, cphase, aom, cdist, cangdia, csund, csuang,
          phases[2], which[2], mcap, yrad, xrad, y, xright, xleft;
-  int atflrlen, atflridx, numcols, lin, col, midlin, colright, colleft, i, j, index, maxline = 0;
+  int atflrlen, atflridx, numcols, lin, col, midlin, colright, colleft, i, j, 
+  		index, maxline = 0;
   char c, line[LINELENGTH], infoline[4][LINELENGTH];
 
   /* Find the length of the atfiller string. */
@@ -690,7 +691,9 @@ putmoon( time_t t, int numlines, char* atfiller )
         break;
       case 19:
         tmP = localtime( &t );
-        if ( tmP->tm_mon == 9 && clocknow % ( 33 - tmP->tm_mday ) == 1 && cphase > 0.6 )
+        if ( tmP->tm_mon == 9 
+        	&& clocknow % ( 33 - tmP->tm_mday ) == 1 
+        	&& cphase > 0.6 )
         {
           c = pumpkin19[lin][col];
         }
@@ -707,7 +710,9 @@ putmoon( time_t t, int numlines, char* atfiller )
         break;
       case 23:
         tmP = localtime( &t );
-        if ( tmP->tm_mon == 9 && clocknow % ( 33 - tmP->tm_mday ) == 1 && cphase > 0.6 )
+        if ( tmP->tm_mon == 9 
+        	&& clocknow % ( 33 - tmP->tm_mday ) == 1 
+        	&& cphase > 0.6 )
         {
           c = pumpkin23[lin][col];
         }
@@ -865,10 +870,12 @@ main( int argc, char** argv )
 
   #ifdef AMIGA /* parse Amiga style commamnd line args */
   (void) strlen(__ver); /* so compiler does not throw out __ver */
-  if (parse_amiga_args(argv, &numlines, &dmin, &dhour, &dday, &dmonth, &dyear, &showdate, datetime) != 0)
+  if (parse_amiga_args(argv, &numlines, &dmin, &dhour, &dday, &dmonth, &dyear, 
+  		&showdate, datetime) != 0)
     exit(EXIT_FAILURE);
   #else /* parse POSIX style command line args */
-  if (parse_args(argc, argv, &numlines, &dmin, &dhour, &dday, &dmonth, &dyear, &showdate, datetime) != 0)
+  if (parse_args(argc, argv, &numlines, &dmin, &dhour, &dday, &dmonth, &dyear, 
+  		&showdate, datetime) != 0)
     exit(EXIT_FAILURE);
   #endif /* AMIGA */
 
