@@ -269,9 +269,7 @@ parse_args(int argc, char** argv, int* lines, long* dmin, long* dhour,
 static void
 trim(char *str)
 {
-  int i;
-  int begin = 0;
-  int end = strlen(str) - 1;
+  int i, begin = 0, end = strlen(str) - 1;
 
   while (isspace((unsigned char) str[begin]))
     begin++;
@@ -847,7 +845,7 @@ main( int argc, char** argv )
   time_t t, start_time;
   int numlines, showdate;
   long dmin, dhour, dday, dmonth, dyear, gmtoff;
-  char datetime[30], adj_time_str[50], str_gmtoff[10];
+  char datetime[30], adj_time_str[50], tz_str[10];
   struct tm *tm;
 
   #ifdef AMIGA
@@ -863,7 +861,7 @@ main( int argc, char** argv )
   dyear = 0;
   gmtoff = 0;
   datetime[0] = '\0';
-  str_gmtoff[0] ='\0';
+  tz_str[0] ='\0';
 
   #ifdef AMIGA /* parse Amiga style commamnd line args */
   (void) strlen(__ver); /* so compiler does not throw out __ver */
@@ -878,7 +876,7 @@ main( int argc, char** argv )
 
   if (datetime[0] != '\0')
     /* start time supplied from command line */
-    start_time = date_parse_r(datetime, str_gmtoff, &gmtoff);
+    start_time = date_parse_r(datetime, tz_str, sizeof tz_str, &gmtoff);
   else
     /* start time is current time */
     start_time= time(NULL);
@@ -912,12 +910,12 @@ main( int argc, char** argv )
   if (showdate == 1)
   {
     #ifdef AMIGA
-    if (str_gmtoff[0] != '\0')
+    if (tz_str[0] != '\0')
     {
       t += gmtoff;
       tm = localtime(&t);
       strftime(adj_time_str, sizeof(adj_time_str), "%e %b %Y %I:%M %p ", tm);
-      strncat(adj_time_str, str_gmtoff, strlen(adj_time_str)-1);
+      strncat(adj_time_str, tz_str, strlen(adj_time_str)-1);
     }
     else
     {

@@ -67,7 +67,8 @@ struct strlong {
 #define AMPM_AM 1
 #define AMPM_PM 2
 
-static time_t date_parse_internal( char* str, char* str_gmtoff_r, long* gmtoff_r );
+static time_t 
+__date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr );
 static void pound_case( char* str );
 static void upper_case( char* str );
 static int strlong_compare( const void* v1, const void* v2 );
@@ -81,7 +82,7 @@ static int is_leap( int year );
 static time_t tm_to_time( struct tm* tmP );
 
 static time_t
-date_parse_internal( char* str, char* str_gmtoff_r, long* gmtoff_r )
+__date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
 {
   time_t now, t;
   struct tm *now_tmP, tm;
@@ -737,12 +738,12 @@ date_parse_internal( char* str, char* str_gmtoff_r, long* gmtoff_r )
   t -= 60*60;
 #endif
 
-  if ( got_zone && str_gmtoff_r != NULL && gmtoff_r != NULL )
+  if ( got_zone && tz_str_ptr != NULL && gmtoff_ptr != NULL )
   {
-    strncpy(str_gmtoff_r, str_gmtoff, 10 );
-    str_gmtoff_r[9] = 0;
-    upper_case(str_gmtoff_r);
-    *gmtoff_r = gmtoff;
+    strncpy(tz_str_ptr, str_gmtoff, tz_str_size );
+    tz_str_ptr[tz_str_size - 1] = 0;
+    upper_case(tz_str_ptr);
+    *gmtoff_ptr = gmtoff;
   }
   return t;
 }
@@ -751,13 +752,13 @@ date_parse_internal( char* str, char* str_gmtoff_r, long* gmtoff_r )
 time_t
 date_parse( char* str )
 {
-  return date_parse_internal(str, NULL, NULL);
+  return __date_parse(str, NULL, 0, NULL);
 }
 
 time_t
-date_parse_r( char* str, char* str_gmtoff_r, long* gmtoff_r )
+date_parse_r( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
 {
-  return date_parse_internal( str, str_gmtoff_r, gmtoff_r );
+  return __date_parse(str, tz_str_ptr, tz_str_size, gmtoff_ptr);
 }
 
 

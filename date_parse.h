@@ -29,6 +29,6 @@
 #define _DATE_PARSE_H_
 
 time_t date_parse( char* str );
-time_t date_parse_r( char* str, char* str_gmtoff_r, long* gmtoff_r );
+time_t date_parse_r( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr );
 
 #endif /* _DATE_PARSE_H_ */
