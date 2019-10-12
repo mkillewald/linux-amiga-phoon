@@ -133,9 +133,10 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   */
 
   /* DD/mth/YY:HH:MM:SS zone */
-  if ( sscanf( cp, "%d/%400[a-zA-Z]/%d:%d:%d:%d %400[^:   \n]", &tm_mday,
-    str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec, str_gmtoff ) == 7 &&
-    scan_mon( str_mon, &tm_mon ) && scan_gmtoff( str_gmtoff, &gmtoff ) )
+  if ( sscanf( cp, "%d/%400[a-zA-Z]/%d:%d:%d:%d %400[^:   \n]", &tm_mday, 
+  			str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec, str_gmtoff ) == 7 
+    && scan_mon( str_mon, &tm_mon ) 
+    && scan_gmtoff( str_gmtoff, &gmtoff ) )
   {
     tm.tm_mday = tm_mday;
     tm.tm_mon = tm_mon;
@@ -147,12 +148,15 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* DD-mth-YY HH:MM:SS ampm zone */
-  else if ( ( ( sscanf( cp, "%d-%400[a-zA-Z]-%d %d:%d:%d %400[apmAPM] %400[^:   \n]",
-    &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec, str_ampm,
-    str_gmtoff ) == 8 && scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%d-%400[a-zA-Z]-%d %d:%d:%d %400[^:  \n]", &tm_mday,
-    str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec, str_gmtoff ) == 7 ) &&
-    scan_mon( str_mon, &tm_mon ) && scan_gmtoff( str_gmtoff, &gmtoff ) )
+  else if ( 
+  	( ( sscanf( cp, "%d-%400[a-zA-Z]-%d %d:%d:%d %400[apmAPM] %400[^:   \n]",
+    		&tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec, str_ampm,
+    		str_gmtoff ) == 8 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%d-%400[a-zA-Z]-%d %d:%d:%d %400[^:  \n]", &tm_mday,
+    		str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec, str_gmtoff ) == 7 ) 
+    && scan_mon( str_mon, &tm_mon ) 
+    && scan_gmtoff( str_gmtoff, &gmtoff ) )
   {
     tm.tm_mday = tm_mday;
     tm.tm_mon = tm_mon;
@@ -164,12 +168,15 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* DD-mth-YY HH:MM ampm zone */
-  else if ( ( ( sscanf( cp, "%d-%400[a-zA-Z]-%d %d:%d %400[apmAPM] %400[^:  \n]",
-    &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, str_ampm,
-    str_gmtoff ) == 7 && scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%d-%400[a-zA-Z]-%d %d:%d %400[^:   \n]", &tm_mday, str_mon,
-    &tm_year, &tm_hour, &tm_min, str_gmtoff ) == 6 ) && scan_mon( str_mon,
-    &tm_mon ) && scan_gmtoff( str_gmtoff, &gmtoff ) )
+  else if ( 
+  	( ( sscanf( cp, "%d-%400[a-zA-Z]-%d %d:%d %400[apmAPM] %400[^:  \n]",
+    		&tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, str_ampm, 
+    		str_gmtoff ) == 7 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%d-%400[a-zA-Z]-%d %d:%d %400[^:   \n]", &tm_mday, str_mon,
+    		&tm_year, &tm_hour, &tm_min, str_gmtoff ) == 6 ) 
+    && scan_mon( str_mon, &tm_mon ) 
+    && scan_gmtoff( str_gmtoff, &gmtoff ) )
   {
     tm.tm_mday = tm_mday;
     tm.tm_mon = tm_mon;
@@ -181,11 +188,13 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* DD-mth-YY HH:MM:SS ampm */
-  else if ( ( ( sscanf( cp, "%d-%400[a-zA-Z]-%d %d:%d:%d %400[apmAPM]",
-    &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec, str_ampm ) == 7 &&
-    scan_ampm( str_ampm, &ampm ) ) || sscanf( cp, "%d-%400[a-zA-Z]-%d %d:%d:%d",
-    &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec ) == 6 ) &&
-    scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%d-%400[a-zA-Z]-%d %d:%d:%d %400[apmAPM]", &tm_mday, 
+  			str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec, str_ampm ) == 7
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%d-%400[a-zA-Z]-%d %d:%d:%d", &tm_mday, str_mon, &tm_year, 
+    		&tm_hour, &tm_min, &tm_sec ) == 6 ) 
+    && scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_mday = tm_mday;
     tm.tm_mon = tm_mon;
@@ -196,11 +205,13 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* DD-mth-YY HH:MM ampm */
-  else if ( ( ( sscanf( cp, "%d-%400[a-zA-Z]-%d %d:%d %400[apmAPM]", &tm_mday,
-    str_mon, &tm_year, &tm_hour, &tm_min, str_ampm ) == 6 &&
-    scan_ampm( str_ampm, &ampm ) ) || sscanf( cp, "%d-%400[a-zA-Z]-%d %d:%d",
-    &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min ) == 5 ) &&
-    scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%d-%400[a-zA-Z]-%d %d:%d %400[apmAPM]", &tm_mday, str_mon, 
+  			&tm_year, &tm_hour, &tm_min, str_ampm ) == 6 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%d-%400[a-zA-Z]-%d %d:%d", &tm_mday, str_mon, &tm_year, 
+    		&tm_hour, &tm_min ) == 5 ) 
+    && scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_mday = tm_mday;
     tm.tm_mon = tm_mon;
@@ -211,12 +222,15 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* DD mth YY HH:MM:SS ampm zone */
-  else if ( ( ( sscanf( cp, "%d %400[a-zA-Z] %d %d:%d:%d %400[apmAPM] %400[^:   \n]",
-    &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec, str_ampm,
-    str_gmtoff ) == 8 && scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%d %400[a-zA-Z] %d %d:%d:%d %400[^:  \n]", &tm_mday, str_mon,
-    &tm_year, &tm_hour, &tm_min, &tm_sec, str_gmtoff ) == 7 ) &&
-    scan_mon( str_mon, &tm_mon ) && scan_gmtoff( str_gmtoff, &gmtoff ) )
+  else if ( 
+  	( ( sscanf( cp, "%d %400[a-zA-Z] %d %d:%d:%d %400[apmAPM] %400[^:   \n]",
+    		&tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec, str_ampm,
+    		str_gmtoff ) == 8 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%d %400[a-zA-Z] %d %d:%d:%d %400[^:  \n]", &tm_mday, str_mon,
+    		&tm_year, &tm_hour, &tm_min, &tm_sec, str_gmtoff ) == 7 ) 
+    && scan_mon( str_mon, &tm_mon ) 
+    && scan_gmtoff( str_gmtoff, &gmtoff ) )
   {
     tm.tm_mday = tm_mday;
     tm.tm_mon = tm_mon;
@@ -228,12 +242,15 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* DD mth YY HH:MM ampm zone */
-  else if ( ( ( sscanf( cp, "%d %400[a-zA-Z] %d %d:%d %400[apmAPM] %400[^:  \n]",
-    &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, str_ampm, str_gmtoff ) == 7 &&
-    scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%d %400[a-zA-Z] %d %d:%d %400[^:   \n]", &tm_mday, str_mon,
-    &tm_year, &tm_hour, &tm_min, str_gmtoff ) == 6 ) && scan_mon( str_mon,
-    &tm_mon ) && scan_gmtoff( str_gmtoff, &gmtoff ) )
+  else if ( 
+  	( ( sscanf( cp, "%d %400[a-zA-Z] %d %d:%d %400[apmAPM] %400[^:  \n]", 
+  			&tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, str_ampm,
+  			str_gmtoff ) == 7 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%d %400[a-zA-Z] %d %d:%d %400[^:   \n]", &tm_mday, str_mon,
+    		&tm_year, &tm_hour, &tm_min, str_gmtoff ) == 6 ) 
+    && scan_mon( str_mon, &tm_mon ) 
+    && scan_gmtoff( str_gmtoff, &gmtoff ) )
   {
     tm.tm_mday = tm_mday;
     tm.tm_mon = tm_mon;
@@ -245,11 +262,13 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* DD mth YY HH:MM:SS ampm */
-  else if ( ( ( sscanf( cp, "%d %400[a-zA-Z] %d %d:%d:%d %400[apmAPM]",
-    &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec,str_ampm ) == 7 &&
-    scan_ampm( str_ampm, &ampm ) ) || sscanf( cp, "%d %400[a-zA-Z] %d %d:%d:%d",
-    &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec ) == 6 ) &&
-    scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%d %400[a-zA-Z] %d %d:%d:%d %400[apmAPM]",
+    		&tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec,str_ampm ) == 7 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%d %400[a-zA-Z] %d %d:%d:%d", &tm_mday, str_mon, &tm_year, 
+    		&tm_hour, &tm_min, &tm_sec ) == 6 ) 
+    && scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_mday = tm_mday;
     tm.tm_mon = tm_mon;
@@ -260,11 +279,13 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* DD mth YY HH:MM ampm */
-  else if ( ( ( sscanf( cp, "%d %400[a-zA-Z] %d %d:%d %400[apmAPM]",
-    &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, str_ampm ) == 6 &&
-    scan_ampm( str_ampm, &ampm ) ) || sscanf( cp, "%d %400[a-zA-Z] %d %d:%d",
-    &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min ) == 5 ) &&
-    scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%d %400[a-zA-Z] %d %d:%d %400[apmAPM]", &tm_mday, str_mon, 
+  			&tm_year, &tm_hour, &tm_min, str_ampm ) == 6 
+  	&& scan_ampm( str_ampm, &ampm ) ) 
+  	|| sscanf( cp, "%d %400[a-zA-Z] %d %d:%d", &tm_mday, str_mon, &tm_year, 
+  			&tm_hour, &tm_min ) == 5 ) 
+  	&& scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_mday = tm_mday;
     tm.tm_mon = tm_mon;
@@ -275,11 +296,13 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* DD mth HH:MM:SS ampm */
-  else if ( ( ( sscanf( cp, "%d %400[a-zA-Z] %d:%d:%d %400[apmAPM]",
-    &tm_mday, str_mon, &tm_hour, &tm_min, &tm_sec, str_ampm ) == 6 &&
-    scan_ampm( str_ampm, &ampm ) ) || sscanf( cp, "%d %400[a-zA-Z] %d:%d:%d",
-    &tm_mday, str_mon, &tm_hour, &tm_min, &tm_sec ) == 5 ) &&
-    scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%d %400[a-zA-Z] %d:%d:%d %400[apmAPM]", &tm_mday, str_mon, \
+  			&tm_hour, &tm_min, &tm_sec, str_ampm ) == 6 
+  	&& scan_ampm( str_ampm, &ampm ) ) 
+  	|| sscanf( cp, "%d %400[a-zA-Z] %d:%d:%d", &tm_mday, str_mon, &tm_hour,
+  			&tm_min, &tm_sec ) == 5 ) 
+  	&& scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_mday = tm_mday;
     tm.tm_mon = tm_mon;
@@ -289,11 +312,13 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* DD mth HH:MM ampm */
-  else if ( ( ( sscanf( cp, "%d %400[a-zA-Z] %d:%d %400[apmAPM]",
-    &tm_mday, str_mon, &tm_hour, &tm_min, str_ampm ) == 5 &&
-    scan_ampm( str_ampm, &ampm ) ) || sscanf( cp, "%d %400[a-zA-Z] %d:%d",
-    &tm_mday, str_mon, &tm_hour, &tm_min ) == 4 ) &&
-    scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%d %400[a-zA-Z] %d:%d %400[apmAPM]", &tm_mday, str_mon, 
+  			&tm_hour, &tm_min, str_ampm ) == 5 
+  	&& scan_ampm( str_ampm, &ampm ) ) 
+  	|| sscanf( cp, "%d %400[a-zA-Z] %d:%d", &tm_mday, str_mon, &tm_hour, 
+  			&tm_min ) == 4 ) 
+  	&& scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_mday = tm_mday;
     tm.tm_mon = tm_mon;
@@ -303,12 +328,15 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* HH:MM:SS ampm zone DD-mth-YY */
-  else if ( ( ( sscanf( cp, "%d:%d:%d %400[apmAPM] %400[^:  \n] %d-%400[a-zA-Z]-%d",
-   &tm_hour, &tm_min, &tm_sec, str_ampm, str_gmtoff, &tm_mday, str_mon,
-   &tm_year ) == 8 && scan_ampm( str_ampm, &ampm ) ) ||
-   sscanf( cp, "%d:%d:%d %400[^:  \n] %d-%400[a-zA-Z]-%d", &tm_hour, &tm_min,
-   &tm_sec, str_gmtoff, &tm_mday, str_mon, &tm_year ) == 7 ) &&
-   scan_gmtoff( str_gmtoff, &gmtoff ) && scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%d:%d:%d %400[apmAPM] %400[^:  \n] %d-%400[a-zA-Z]-%d",
+   			&tm_hour, &tm_min, &tm_sec, str_ampm, str_gmtoff, &tm_mday, str_mon,
+  			&tm_year ) == 8 
+		&& scan_ampm( str_ampm, &ampm ) ) 
+		|| sscanf( cp, "%d:%d:%d %400[^:  \n] %d-%400[a-zA-Z]-%d", &tm_hour, 
+				&tm_min, &tm_sec, str_gmtoff, &tm_mday, str_mon, &tm_year ) == 7 ) 
+		&& scan_gmtoff( str_gmtoff, &gmtoff ) 
+		&& scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_hour = ampm_fix( tm_hour, ampm );
     tm.tm_min = tm_min;
@@ -319,11 +347,13 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* HH:MM ampm zone DD-mth-YY */
-  else if ( ( ( sscanf( cp, "%d:%d %400[apmAPM] %400[^:   \n] %d-%400[a-zA-Z]-%d",
-    &tm_hour, &tm_min, str_ampm, str_gmtoff, &tm_mday, str_mon, &tm_year ) == 7 &&
-    scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%d:%d %400[^:  \n] %d-%400[a-zA-Z]-%d", &tm_hour, &tm_min,
-    str_gmtoff, &tm_mday, str_mon, &tm_year ) == 6 ) &&
+  else if ( 
+  	( ( sscanf( cp, "%d:%d %400[apmAPM] %400[^:   \n] %d-%400[a-zA-Z]-%d",
+				&tm_hour, &tm_min, str_ampm, str_gmtoff, &tm_mday, str_mon, 
+				&tm_year ) == 7 
+		&& scan_ampm( str_ampm, &ampm ) ) 
+		|| sscanf( cp, "%d:%d %400[^:  \n] %d-%400[a-zA-Z]-%d", &tm_hour, &tm_min,
+    		str_gmtoff, &tm_mday, str_mon, &tm_year ) == 6 ) &&
     scan_gmtoff( str_gmtoff, &gmtoff ) && scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_hour = ampm_fix( tm_hour, ampm );
@@ -335,11 +365,13 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* HH:MM:SS ampm DD-mth-YY */
-  else if ( ( ( sscanf( cp, "%d:%d:%d %400[apmAPM] %d-%400[a-zA-Z]-%d",
-    &tm_hour, &tm_min, &tm_sec, str_ampm, &tm_mday, str_mon, &tm_year ) == 7 &&
-    scan_ampm( str_ampm, &ampm ) ) || sscanf( cp, "%d:%d:%d %d-%400[a-zA-Z]-%d",
-    &tm_hour, &tm_min, &tm_sec, &tm_mday, str_mon, &tm_year ) == 6 ) &&
-    scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%d:%d:%d %400[apmAPM] %d-%400[a-zA-Z]-%d", &tm_hour, 
+  			&tm_min, &tm_sec, str_ampm, &tm_mday, str_mon, &tm_year ) == 7 
+  	&& scan_ampm( str_ampm, &ampm ) ) 
+  	|| sscanf( cp, "%d:%d:%d %d-%400[a-zA-Z]-%d", &tm_hour, &tm_min, &tm_sec, 
+  			&tm_mday, str_mon, &tm_year ) == 6 ) 
+  	&& scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_hour = ampm_fix( tm_hour, ampm );
     tm.tm_min = tm_min;
@@ -350,11 +382,13 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* HH:MM ampm DD-mth-YY */
-  else if ( ( ( sscanf( cp, "%d:%d %400[apmAPM] %d-%400[a-zA-Z]-%d",
-    &tm_hour, &tm_min, str_ampm, &tm_mday, str_mon, &tm_year ) == 6 &&
-    scan_ampm( str_ampm, &ampm ) ) || sscanf( cp, "%d:%d %d-%400[a-zA-Z]-%d",
-    &tm_hour, &tm_min, &tm_mday, str_mon, &tm_year ) == 5 ) &&
-    scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%d:%d %400[apmAPM] %d-%400[a-zA-Z]-%d", &tm_hour, &tm_min, 
+  			str_ampm, &tm_mday, str_mon, &tm_year ) == 6 
+  	&& scan_ampm( str_ampm, &ampm ) ) 
+  	|| sscanf( cp, "%d:%d %d-%400[a-zA-Z]-%d", &tm_hour, &tm_min, &tm_mday, 
+  			str_mon, &tm_year ) == 5 ) 
+  	&& scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_hour = ampm_fix( tm_hour, ampm );
     tm.tm_min = tm_min;
@@ -365,12 +399,14 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* HH:MM:SS ampm zone DD mth YY */
-  else if ( ( ( sscanf( cp, "%d:%d:%d %400[apmAPM] %400[^:  \n] %d %400[a-zA-Z] %d",
-    &tm_hour, &tm_min, &tm_sec, str_ampm, str_gmtoff, &tm_mday, str_mon,
-    &tm_year ) == 8 && scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%d:%d:%d %400[^:   \n] %d %400[a-zA-Z] %d", &tm_hour, &tm_min,
-    &tm_sec, str_gmtoff, &tm_mday, str_mon, &tm_year ) == 7 ) &&
-    scan_gmtoff( str_gmtoff, &gmtoff ) && scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%d:%d:%d %400[apmAPM] %400[^:  \n] %d %400[a-zA-Z] %d",
+    		&tm_hour, &tm_min, &tm_sec, str_ampm, str_gmtoff, &tm_mday, str_mon,
+    		&tm_year ) == 8 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%d:%d:%d %400[^:   \n] %d %400[a-zA-Z] %d", &tm_hour, 
+    		&tm_min, &tm_sec, str_gmtoff, &tm_mday, str_mon, &tm_year ) == 7 ) 
+    && scan_gmtoff( str_gmtoff, &gmtoff ) && scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_hour = ampm_fix( tm_hour, ampm );
     tm.tm_min = tm_min;
@@ -381,12 +417,15 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* HH:MM ampm zone DD mth YY */
-  else if ( ( ( sscanf( cp, "%d:%d %400[apmAPM] %400[^:   \n] %d %400[a-zA-Z] %d",
-    &tm_hour, &tm_min, str_ampm, str_gmtoff, &tm_mday, str_mon, &tm_year ) == 7 &&
-    scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%d:%d %400[^:  \n] %d %400[a-zA-Z] %d", &tm_hour, &tm_min,
-    str_gmtoff, &tm_mday, str_mon, &tm_year ) == 6 ) &&
-    scan_gmtoff( str_gmtoff, &gmtoff ) && scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%d:%d %400[apmAPM] %400[^:   \n] %d %400[a-zA-Z] %d",
+    		&tm_hour, &tm_min, str_ampm, str_gmtoff, &tm_mday, str_mon, 
+    		&tm_year ) == 7 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%d:%d %400[^:  \n] %d %400[a-zA-Z] %d", &tm_hour, &tm_min,
+    		str_gmtoff, &tm_mday, str_mon, &tm_year ) == 6 ) 
+    && scan_gmtoff( str_gmtoff, &gmtoff ) 
+    && scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_hour = ampm_fix( tm_hour, ampm );
     tm.tm_min = tm_min;
@@ -397,11 +436,13 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* HH:MM:SS ampm DD mth YY */
-  else if ( ( ( sscanf( cp, "%d:%d:%d %400[apmAPM] %d %400[a-zA-Z] %d",
-    &tm_hour, &tm_min, &tm_sec, str_ampm, &tm_mday, str_mon, &tm_year ) == 7 &&
-    scan_ampm( str_ampm, &ampm ) ) || sscanf( cp, "%d:%d:%d %d %400[a-zA-Z] %d",
-    &tm_hour, &tm_min, &tm_sec, &tm_mday, str_mon,&tm_year ) == 6 ) &&
-    scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%d:%d:%d %400[apmAPM] %d %400[a-zA-Z] %d", &tm_hour, 
+  			&tm_min, &tm_sec, str_ampm, &tm_mday, str_mon, &tm_year ) == 7 
+  	&& scan_ampm( str_ampm, &ampm ) ) 
+  	|| sscanf( cp, "%d:%d:%d %d %400[a-zA-Z] %d", &tm_hour, &tm_min, &tm_sec, 
+  			&tm_mday, str_mon,&tm_year ) == 6 ) 
+  	&& scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_hour = ampm_fix( tm_hour, ampm );
     tm.tm_min = tm_min;
@@ -412,11 +453,13 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* HH:MM ampm DD mth YY */
-  else if ( ( ( sscanf( cp, "%d:%d %400[apmAPM] %d %400[a-zA-Z] %d",
-    &tm_hour, &tm_min, str_ampm, &tm_mday, str_mon, &tm_year ) == 6 &&
-    scan_ampm( str_ampm, &ampm ) ) || sscanf( cp, "%d:%d %d %400[a-zA-Z] %d",
-    &tm_hour, &tm_min, &tm_mday, str_mon, &tm_year ) == 5 ) &&
-    scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%d:%d %400[apmAPM] %d %400[a-zA-Z] %d", &tm_hour, &tm_min, 
+  			str_ampm, &tm_mday, str_mon, &tm_year ) == 6 
+  	&& scan_ampm( str_ampm, &ampm ) ) 
+  	|| sscanf( cp, "%d:%d %d %400[a-zA-Z] %d", &tm_hour, &tm_min, &tm_mday, 
+  			str_mon, &tm_year ) == 5 ) 
+  	&& scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_hour = ampm_fix( tm_hour, ampm );
     tm.tm_min = tm_min;
@@ -427,13 +470,17 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* wdy, DD-mth-YY HH:MM:SS ampm zone */
-  else if ( ( ( sscanf( cp, "%400[a-zA-Z,] %d-%400[a-zA-Z]-%d %d:%d:%d %400[apmAPM] %400[^:   \n]",
-    str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec, str_ampm,
-    str_gmtoff ) == 9 && scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%400[a-zA-Z], %d-%400[a-zA-Z]-%d %d:%d:%d %400[^:  \n]",
-    str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec,
-    str_gmtoff ) == 8 ) && scan_wday( str_wday, &tm_wday ) &&
-    scan_mon( str_mon, &tm_mon ) && scan_gmtoff( str_gmtoff, &gmtoff ) )
+  else if ( 
+  	( ( sscanf( cp, "%400[a-zA-Z,] %d-%400[a-zA-Z]-%d %d:%d:%d %400[apmAPM] %400[^:   \n]",
+    		str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec, 
+    		str_ampm, str_gmtoff ) == 9 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%400[a-zA-Z], %d-%400[a-zA-Z]-%d %d:%d:%d %400[^:  \n]",
+    		str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec,
+    		str_gmtoff ) == 8 ) 
+    && scan_wday( str_wday, &tm_wday ) 
+    && scan_mon( str_mon, &tm_mon ) 
+    && scan_gmtoff( str_gmtoff, &gmtoff ) )
   {
     tm.tm_wday = tm_wday;
     tm.tm_mday = tm_mday;
@@ -445,13 +492,17 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
     got_zone = 1;
   }
   /* wdy, DD-mth-YY HH:MM ampm zone */
-  else if ( ( ( sscanf( cp, "%400[a-zA-Z,] %d-%400[a-zA-Z]-%d %d:%d %400[apmAPM] %400[^:  \n]",
-    str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, str_ampm,
-    str_gmtoff ) == 8 && scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%400[a-zA-Z], %d-%400[a-zA-Z]-%d %d:%d %400[^:   \n]",
-    str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, str_gmtoff ) == 7 ) &&
-    scan_wday( str_wday, &tm_wday ) && scan_mon( str_mon, &tm_mon ) &&
-    scan_gmtoff( str_gmtoff, &gmtoff ) )
+  else if ( 
+  	( ( sscanf( cp, "%400[a-zA-Z,] %d-%400[a-zA-Z]-%d %d:%d %400[apmAPM] %400[^:  \n]",
+    		str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, str_ampm,
+    		str_gmtoff ) == 8 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%400[a-zA-Z], %d-%400[a-zA-Z]-%d %d:%d %400[^:   \n]",
+    		str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, 
+    		str_gmtoff ) == 7 ) 
+    && scan_wday( str_wday, &tm_wday ) 
+    && scan_mon( str_mon, &tm_mon ) 
+    && scan_gmtoff( str_gmtoff, &gmtoff ) )
   {
     tm.tm_wday = tm_wday;
     tm.tm_mday = tm_mday;
@@ -464,12 +515,15 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* wdy, DD-mth-YY HH:MM:SS ampm */
-  else if ( ( ( sscanf( cp, "%400[a-zA-Z,] %d-%400[a-zA-Z]-%d %d:%d:%d %400[apmAPM]",
-    str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec,
-    str_ampm ) == 8 && scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%400[a-zA-Z], %d-%400[a-zA-Z]-%d %d:%d:%d", str_wday, &tm_mday,
-    str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec ) == 7 ) &&
-    scan_wday( str_wday, &tm_wday ) && scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%400[a-zA-Z,] %d-%400[a-zA-Z]-%d %d:%d:%d %400[apmAPM]",
+    		str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec,
+    		str_ampm ) == 8 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%400[a-zA-Z], %d-%400[a-zA-Z]-%d %d:%d:%d", str_wday, 
+    		&tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec ) == 7 ) 
+    && scan_wday( str_wday, &tm_wday ) 
+    && scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_wday = tm_wday;
     tm.tm_mday = tm_mday;
@@ -481,12 +535,15 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* wdy, DD-mth-YY HH:MM ampm */
-  else if ( ( ( sscanf( cp, "%400[a-zA-Z,] %d-%400[a-zA-Z]-%d %d:%d %400[apmAPM]",
-    str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, str_ampm ) == 7 &&
-    scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%400[a-zA-Z], %d-%400[a-zA-Z]-%d %d:%d", str_wday, &tm_mday,
-    str_mon, &tm_year, &tm_hour, &tm_min ) == 6 ) &&
-    scan_wday( str_wday, &tm_wday ) && scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%400[a-zA-Z,] %d-%400[a-zA-Z]-%d %d:%d %400[apmAPM]",
+    		str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, 
+    		str_ampm ) == 7 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%400[a-zA-Z], %d-%400[a-zA-Z]-%d %d:%d", str_wday, &tm_mday,
+    		str_mon, &tm_year, &tm_hour, &tm_min ) == 6 ) 
+    && scan_wday( str_wday, &tm_wday ) 
+    && scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_wday = tm_wday;
     tm.tm_mday = tm_mday;
@@ -498,13 +555,17 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* wdy, DD mth YY HH:MM:SS ampm zone */
-  else if ( ( ( sscanf( cp, "%400[a-zA-Z,] %d %400[a-zA-Z] %d %d:%d:%d %400[apmAPM] %400[^:   \n]",
-    str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec, str_ampm,
-    str_gmtoff ) == 9 && scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%400[a-zA-Z], %d %400[a-zA-Z] %d %d:%d:%d %400[^:  \n]",
-    str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec,
-    str_gmtoff ) == 8 ) && scan_wday( str_wday, &tm_wday ) &&
-    scan_mon( str_mon, &tm_mon ) && scan_gmtoff( str_gmtoff, &gmtoff ) )
+  else if ( 
+  	( ( sscanf( cp, "%400[a-zA-Z,] %d %400[a-zA-Z] %d %d:%d:%d %400[apmAPM] %400[^:   \n]",
+    		str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec, 
+    		str_ampm, str_gmtoff ) == 9 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%400[a-zA-Z], %d %400[a-zA-Z] %d %d:%d:%d %400[^:  \n]",
+    		str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec,
+    		str_gmtoff ) == 8 ) 
+    && scan_wday( str_wday, &tm_wday ) 
+    && scan_mon( str_mon, &tm_mon ) 
+    && scan_gmtoff( str_gmtoff, &gmtoff ) )
   {
     tm.tm_wday = tm_wday;
     tm.tm_mday = tm_mday;
@@ -517,13 +578,17 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* wdy, DD mth YY HH:MM ampm zone */
-  else if ( ( ( sscanf( cp, "%400[a-zA-Z,] %d %400[a-zA-Z] %d %d:%d %400[apmAPM] %400[^:  \n]",
-    str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, str_ampm,
-    str_gmtoff ) == 8 && scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%400[a-zA-Z], %d %400[a-zA-Z] %d %d:%d %400[^:   \n]",
-    str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, str_gmtoff ) == 7 ) &&
-    scan_wday( str_wday, &tm_wday ) && scan_mon( str_mon, &tm_mon ) &&
-    scan_gmtoff( str_gmtoff, &gmtoff ) )
+  else if ( 
+  	( ( sscanf( cp, "%400[a-zA-Z,] %d %400[a-zA-Z] %d %d:%d %400[apmAPM] %400[^:  \n]",
+    		str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, str_ampm,
+    		str_gmtoff ) == 8 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%400[a-zA-Z], %d %400[a-zA-Z] %d %d:%d %400[^:   \n]",
+    		str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, 
+    		str_gmtoff ) == 7 ) 
+    && scan_wday( str_wday, &tm_wday ) 
+    && scan_mon( str_mon, &tm_mon ) 
+    && scan_gmtoff( str_gmtoff, &gmtoff ) )
   {
     tm.tm_wday = tm_wday;
     tm.tm_mday = tm_mday;
@@ -536,12 +601,15 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* wdy, DD mth YY HH:MM:SS ampm */
-  else if ( ( ( sscanf( cp, "%400[a-zA-Z,] %d %400[a-zA-Z] %d %d:%d:%d %400[apmAPM]",
-    str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec,
-    str_ampm ) == 8 && scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%400[a-zA-Z], %d %400[a-zA-Z] %d %d:%d:%d", str_wday, &tm_mday,
-    str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec ) == 7 ) &&
-    scan_wday( str_wday, &tm_wday ) && scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%400[a-zA-Z,] %d %400[a-zA-Z] %d %d:%d:%d %400[apmAPM]",
+    		str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec,
+    		str_ampm ) == 8 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%400[a-zA-Z], %d %400[a-zA-Z] %d %d:%d:%d", str_wday, 
+    		&tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, &tm_sec ) == 7 ) 
+    && scan_wday( str_wday, &tm_wday ) 
+    && scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_wday = tm_wday;
     tm.tm_mday = tm_mday;
@@ -553,12 +621,15 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* wdy, DD mth YY HH:MM ampm */
-  else if ( ( ( sscanf( cp, "%400[a-zA-Z,] %d %400[a-zA-Z] %d %d:%d %400[apmAPM]",
-    str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, str_ampm ) == 7 &&
-    scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%400[a-zA-Z], %d %400[a-zA-Z] %d %d:%d", str_wday, &tm_mday,
-    str_mon, &tm_year, &tm_hour, &tm_min ) == 6 ) &&
-    scan_wday( str_wday, &tm_wday ) && scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%400[a-zA-Z,] %d %400[a-zA-Z] %d %d:%d %400[apmAPM]",
+    		str_wday, &tm_mday, str_mon, &tm_year, &tm_hour, &tm_min, 
+    		str_ampm ) == 7 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%400[a-zA-Z], %d %400[a-zA-Z] %d %d:%d", str_wday, &tm_mday,
+    		str_mon, &tm_year, &tm_hour, &tm_min ) == 6 ) 
+    && scan_wday( str_wday, &tm_wday ) 
+    && scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_wday = tm_wday;
     tm.tm_mday = tm_mday;
@@ -570,13 +641,16 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* wdy, mth DD HH:MM:SS ampm zone YY */
-  else if ( ( ( sscanf( cp, "%400[a-zA-Z,] %400[a-zA-Z] %d %d:%d:%d %400[apmAPM] %400[^:  \n] %d",
-    str_wday, str_mon, &tm_mday, &tm_hour, &tm_min, &tm_sec, str_ampm, str_gmtoff,
-    &tm_year ) == 9 && scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%400[a-zA-Z] %400[a-zA-Z] %d %d:%d:%d %400[^:  \n] %d",
-    str_wday, str_mon, &tm_mday, &tm_hour, &tm_min, &tm_sec, str_gmtoff,
-    &tm_year ) == 8 ) && scan_wday( str_wday, &tm_wday ) &&
-    scan_mon( str_mon, &tm_mon ) && scan_gmtoff( str_gmtoff, &gmtoff ) )
+  else if ( 
+  	( ( sscanf( cp, "%400[a-zA-Z,] %400[a-zA-Z] %d %d:%d:%d %400[apmAPM] %400[^:  \n] %d",
+    		str_wday, str_mon, &tm_mday, &tm_hour, &tm_min, &tm_sec, str_ampm, 
+    		str_gmtoff, &tm_year ) == 9 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%400[a-zA-Z] %400[a-zA-Z] %d %d:%d:%d %400[^:  \n] %d",
+    		str_wday, str_mon, &tm_mday, &tm_hour, &tm_min, &tm_sec, str_gmtoff,
+    		&tm_year ) == 8 ) && scan_wday( str_wday, &tm_wday ) 
+    && scan_mon( str_mon, &tm_mon ) 
+    && scan_gmtoff( str_gmtoff, &gmtoff ) )
   {
     tm.tm_wday = tm_wday;
     tm.tm_mon = tm_mon;
@@ -589,13 +663,17 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* wdy, mth DD HH:MM ampm zone YY */
-  else if ( ( ( sscanf( cp, "%400[a-zA-Z,] %400[a-zA-Z] %d %d:%d %400[apmAPM] %400[^:   \n] %d",
-    str_wday, str_mon, &tm_mday, &tm_hour, &tm_min, str_ampm, str_gmtoff,
-    &tm_year ) == 8 && scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%400[a-zA-Z] %400[a-zA-Z] %d %d:%d %400[^:   \n] %d",
-    str_wday, str_mon, &tm_mday, &tm_hour, &tm_min, str_gmtoff, &tm_year ) == 7 ) &&
-    scan_wday( str_wday, &tm_wday ) && scan_mon( str_mon, &tm_mon ) &&
-    scan_gmtoff( str_gmtoff, &gmtoff ) )
+  else if ( 
+  	( ( sscanf( cp, "%400[a-zA-Z,] %400[a-zA-Z] %d %d:%d %400[apmAPM] %400[^:   \n] %d",
+    		str_wday, str_mon, &tm_mday, &tm_hour, &tm_min, str_ampm, str_gmtoff,
+    		&tm_year ) == 8 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%400[a-zA-Z] %400[a-zA-Z] %d %d:%d %400[^:   \n] %d",
+    		str_wday, str_mon, &tm_mday, &tm_hour, &tm_min, str_gmtoff, 
+    		&tm_year ) == 7 ) 
+    && scan_wday( str_wday, &tm_wday ) 
+    && scan_mon( str_mon, &tm_mon ) 
+    && scan_gmtoff( str_gmtoff, &gmtoff ) )
   {
     tm.tm_wday = tm_wday;
     tm.tm_mon = tm_mon;
@@ -608,12 +686,15 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* wdy, mth DD HH:MM:SS ampm YY */
-  else if ( ( ( sscanf( cp, "%400[a-zA-Z,] %400[a-zA-Z] %d %d:%d:%d %400[apmAPM] %d",
-    str_wday, str_mon, &tm_mday, &tm_hour, &tm_min, &tm_sec, str_ampm,
-    &tm_year ) == 8 && scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%400[a-zA-Z] %400[a-zA-Z] %d %d:%d:%d %d", str_wday, str_mon,
-    &tm_mday, &tm_hour, &tm_min, &tm_sec, &tm_year ) == 7 ) &&
-    scan_wday( str_wday, &tm_wday ) && scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%400[a-zA-Z,] %400[a-zA-Z] %d %d:%d:%d %400[apmAPM] %d",
+    		str_wday, str_mon, &tm_mday, &tm_hour, &tm_min, &tm_sec, str_ampm,
+    		&tm_year ) == 8 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%400[a-zA-Z] %400[a-zA-Z] %d %d:%d:%d %d", str_wday, 
+    		str_mon, &tm_mday, &tm_hour, &tm_min, &tm_sec, &tm_year ) == 7 ) 
+    && scan_wday( str_wday, &tm_wday ) 
+    && scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_wday = tm_wday;
     tm.tm_mon = tm_mon;
@@ -625,12 +706,15 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* wdy, mth DD HH:MM ampm YY */
-  else if ( ( ( sscanf( cp, "%400[a-zA-Z,] %400[a-zA-Z] %d %d:%d %400[apmAPM] %d",
-    str_wday, str_mon, &tm_mday, &tm_hour, &tm_min, str_ampm, &tm_year ) == 7 &&
-    scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%400[a-zA-Z] %400[a-zA-Z] %d %d:%d %d", str_wday, str_mon,
-    &tm_mday, &tm_hour, &tm_min, &tm_year ) == 6 ) &&
-    scan_wday( str_wday, &tm_wday ) && scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%400[a-zA-Z,] %400[a-zA-Z] %d %d:%d %400[apmAPM] %d",
+    		str_wday, str_mon, &tm_mday, &tm_hour, &tm_min, str_ampm, 
+    		&tm_year ) == 7 
+    && scan_ampm( str_ampm, &ampm ) ) 
+    || sscanf( cp, "%400[a-zA-Z] %400[a-zA-Z] %d %d:%d %d", str_wday, str_mon,
+    		&tm_mday, &tm_hour, &tm_min, &tm_year ) == 6 ) 
+    && scan_wday( str_wday, &tm_wday ) 
+    && scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_wday = tm_wday;
     tm.tm_mon = tm_mon;
@@ -642,11 +726,13 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* mth DD HH:MM:SS ampm */
-  else if ( ( ( sscanf( cp, "%400[a-zA-Z] %d %d:%d:%d %400[apmAPM]",
-    str_mon, &tm_mday, &tm_hour, &tm_min, &tm_sec, str_ampm ) == 6 &&
-    scan_ampm( str_ampm, &ampm ) ) || sscanf( cp, "%400[a-zA-Z] %d %d:%d:%d",
-    str_mon, &tm_mday, &tm_hour, &tm_min, &tm_sec ) == 5 ) &&
-    scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%400[a-zA-Z] %d %d:%d:%d %400[apmAPM]", str_mon, &tm_mday, 
+  			&tm_hour, &tm_min, &tm_sec, str_ampm ) == 6 
+  	&& scan_ampm( str_ampm, &ampm ) ) 
+  	|| sscanf( cp, "%400[a-zA-Z] %d %d:%d:%d", str_mon, &tm_mday, &tm_hour, 
+  			&tm_min, &tm_sec ) == 5 ) 
+  	&& scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_mon = tm_mon;
     tm.tm_mday = tm_mday;
@@ -656,11 +742,13 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* mth DD HH:MM ampm */
-  else if ( ( ( sscanf( cp, "%400[a-zA-Z] %d %d:%d %400[apmAPM]",
-    str_mon, &tm_mday, &tm_hour, &tm_min, str_ampm ) == 5 &&
-    scan_ampm( str_ampm, &ampm ) ) || sscanf( cp, "%400[a-zA-Z] %d %d:%d",
-    str_mon, &tm_mday, &tm_hour, &tm_min ) == 4 ) &&
-    scan_mon( str_mon, &tm_mon ) )
+  else if ( 
+  	( ( sscanf( cp, "%400[a-zA-Z] %d %d:%d %400[apmAPM]", str_mon, &tm_mday, 
+  			&tm_hour, &tm_min, str_ampm ) == 5 
+  	&& scan_ampm( str_ampm, &ampm ) ) 
+  	|| sscanf( cp, "%400[a-zA-Z] %d %d:%d", str_mon, &tm_mday, &tm_hour, 
+  			&tm_min ) == 4 ) 
+  	&& scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_mon = tm_mon;
     tm.tm_mday = tm_mday;
@@ -670,8 +758,8 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* DD-mth-YY */
-  else if ( sscanf( cp, "%d-%400[a-zA-Z]-%d", &tm_mday, str_mon, &tm_year ) == 3 &&
-    scan_mon( str_mon, &tm_mon ) )
+  else if ( sscanf( cp, "%d-%400[a-zA-Z]-%d", &tm_mday, str_mon, &tm_year ) == 3 
+  	&& scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_mday = tm_mday;
     tm.tm_mon = tm_mon;
@@ -682,8 +770,8 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* DD mth YY */
-  else if ( sscanf( cp, "%d %400[a-zA-Z] %d", &tm_mday, str_mon, &tm_year ) == 3 &&
-    scan_mon( str_mon, &tm_mon ) )
+  else if ( sscanf( cp, "%d %400[a-zA-Z] %d", &tm_mday, str_mon, &tm_year ) == 3 
+  	&& scan_mon( str_mon, &tm_mon ) )
   {
     tm.tm_mday = tm_mday;
     tm.tm_mon = tm_mon;
@@ -694,9 +782,10 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* HH:MM:SS ampm */
-  else if ( ( sscanf( cp, "%d:%d:%d %400[apmAPM]", &tm_hour, &tm_min, &tm_sec,
-    str_ampm ) == 4 && scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%d:%d:%d", &tm_hour, &tm_min, &tm_sec ) == 3 )
+  else if ( ( sscanf( cp, "%d:%d:%d %400[apmAPM]", &tm_hour, &tm_min, &tm_sec, 
+  			str_ampm ) == 4 
+  	&& scan_ampm( str_ampm, &ampm ) ) 
+  	|| sscanf( cp, "%d:%d:%d", &tm_hour, &tm_min, &tm_sec ) == 3 )
   {
     tm.tm_hour = ampm_fix( tm_hour, ampm );
     tm.tm_min = tm_min;
@@ -704,18 +793,18 @@ __date_parse( char* str, char* tz_str_ptr, int tz_str_size, long* gmtoff_ptr )
   }
 
   /* HH:MM ampm */
-  else if ( ( sscanf( cp, "%d:%d %400[apmAPM]", &tm_hour, &tm_min,
-    str_ampm ) == 3 && scan_ampm( str_ampm, &ampm ) ) ||
-    sscanf( cp, "%d:%d", &tm_hour, &tm_min ) == 2 )
+  else if ( 
+  	( sscanf( cp, "%d:%d %400[apmAPM]", &tm_hour, &tm_min, str_ampm ) == 3 
+  	&& scan_ampm( str_ampm, &ampm ) ) 
+  	|| sscanf( cp, "%d:%d", &tm_hour, &tm_min ) == 2 )
   {
     tm.tm_hour = ampm_fix( tm_hour, ampm );
     tm.tm_min = tm_min;
     tm.tm_sec = 0;
   }
 
-  else if ( sscanf( cp, "%d", &i ) == 1 &&
-    i >= 300000000 && i <= 2000000000 )
-    /*     ~1980             ~2033   */
+  else if ( sscanf( cp, "%d", &i ) == 1 && i >= 300000000 && i <= 2000000000 )
+                                           /*     ~1980             ~2033   */
   {
     t = (time_t) i;
     return t;
